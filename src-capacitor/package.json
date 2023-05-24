@@ -1,0 +1,11 @@
+{
+  "name": "nutricionista-web",
+  "version": "0.0.1",
+  "description": "Nutricionista project",
+  "author": "Arturo Saldivar <damonbalam@gmail.com>",
+  "private": true,
+  "dependencies": {
+    "@capacitor/cli": "^2.0.0",
+    "@capacitor/core": "^2.0.0"
+  }
+}
