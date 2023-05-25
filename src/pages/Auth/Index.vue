@@ -135,8 +135,11 @@ function handleClick () {
 </script>
 
 <template>
-  <div class="row justify-end">
-    <div class="card q-mr-lg q-mt-lg">
+  <div class="row justify-center justify-md-end">
+    <q-card
+      class="col-12 col-md-4 q-mr-md-lg q-mt-md-lg"
+      style="height: 95vh; padding: 20px; border-radius: 40px"
+    >
       <div class="row justify-end q-mx-md q-mt-lg">
         <q-img src="../../assets/Logo.png" width="200px" />
       </div>
@@ -152,7 +155,7 @@ function handleClick () {
         v-if="!showRecovery"
         ref="myForm"
         class="q-gutter-md q-mx-auto"
-        style="width: 420px"
+        style="max-width: 480px"
         @submit="handleSubmit"
       >
         <div class="q-mb-none">
@@ -300,7 +303,7 @@ function handleClick () {
           />
         </div>
       </q-form>
-    </div>
+    </q-card>
   </div>
 </template>
 
