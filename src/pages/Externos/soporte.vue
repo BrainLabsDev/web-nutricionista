@@ -18,7 +18,7 @@
             <form
               method="post"
               name="form1"
-              action="mailto:damonbalam@gmail.com"
+              action="mailto:admin@brainlabs.tech"
             >
               <q-input
                 outlined
