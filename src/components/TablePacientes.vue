@@ -127,7 +127,9 @@ const pacientesFiltered = computed(() => {
   return items.value.filter((item: IPaciente) => {
     const coincideNombre =
       search.value === '' ||
-      item.nombre.toLocaleLowerCase().includes(search.value.toLocaleLowerCase())
+      item
+        .nombre_completo!.toLocaleLowerCase()
+        .includes(search.value.toLocaleLowerCase())
     const coincideAcceso =
       acceso.value === null ||
       isFechaEnRango(item.suscripcion?.empieza, item.suscripcion?.termina) ===
@@ -274,6 +276,18 @@ const getEditar = (id: string) => {
       rows-per-page-label="Filas por página"
       :rows-per-page-options="[10, 15, 30, 50]"
     >
+      <template v-slot:body-cell-nombre="props">
+        <q-td key="cita" :props="props">
+          {{ props.row.nombre_completo }}
+          <!-- {{
+            props.row.nombre +
+            ' ' +
+            props.row.apellido_paterno +
+            ' ' +
+            props.row.apellido_materno
+          }} -->
+        </q-td>
+      </template>
       <template v-slot:body-cell-cita="props">
         <q-td key="cita" :props="props">
           {{
