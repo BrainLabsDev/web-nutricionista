@@ -4,6 +4,7 @@ import { ref, onMounted, reactive } from 'vue'
 import { citaControlDataServices } from '../services/CitaControlDataService'
 import { ICitaControl } from '../interfaces/CitaControl'
 import { useQuasar } from 'quasar'
+import { computed } from '@vue/reactivity'
 const $q = useQuasar()
 const props = defineProps({
   id: {
@@ -161,6 +162,17 @@ const closeModal = () => {
   form.evolucion = ''
 }
 
+const disabled = computed(() => {
+  return (
+    form.peso === '' ||
+    form.musculo === '' ||
+    form.grasas === '' ||
+    form.porcentaje_grasa === '' ||
+    form.cc === '' ||
+    form.grasa_viceral === ''
+  )
+})
+
 const handleCita = (id: number) => {
   emits('cita', id)
 }
@@ -303,6 +315,7 @@ const handleCita = (id: number) => {
           :label="form.id === null ? 'Guardar' : 'Actualizar'"
           v-close-popup
           style="width: 175px"
+          :disabled="disabled"
           @click="submit"
         />
       </q-card-actions>

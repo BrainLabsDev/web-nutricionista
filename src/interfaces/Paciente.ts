@@ -11,6 +11,7 @@ export interface ISuscripcion {
 export interface IPaciente {
   id?: number | null
   nombre: string
+  nombre_completo?: string
   apellido_paterno: string
   apellido_materno: string
   sexo: string
