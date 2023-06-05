@@ -2,29 +2,52 @@ import { API } from 'src/common/api'
 import { IProducto } from 'src/interfaces/Producto'
 import { IResponse } from 'src/interfaces/Response'
 
-const route = 'producto'
+import { useAuthStore } from 'src/stores/auth'
+const store = useAuthStore()
+
+const { deleteLocalStorage } = store
 
 class ProductoDataService {
   async getProductos (): Promise<IResponse<IProducto[]>> {
-    let response = await API.get('show/productos', {})
-    return response.data
+    let response
+    try {
+      response = await API.get('show/productos', {})
+    } catch (error) {
+      deleteLocalStorage()
+    }
+    return response!.data
   }
 
-  async getProductoById (id:string): Promise<IResponse<IProducto>> {
-    let response = await API.get(`show/producto/${id}`, {})
-    return response.data
+  async getProductoById (id: string): Promise<IResponse<IProducto>> {
+    let response
+    try {
+      response = await API.get(`show/producto/${id}`, {})
+    } catch (error) {
+      deleteLocalStorage()
+    }
+    return response!.data
   }
 
   async saveProducto (data: IProducto): Promise<IResponse<IProducto>> {
-    let response = await API.post(`create/producto`, { data })
-    return response.data
+    let response
+    try {
+      response = await API.post(`create/producto`, { data })
+    } catch (error) {
+      deleteLocalStorage()
+    }
+    return response!.data
   }
   async updateProducto (
     id: string,
     data: IProducto
   ): Promise<IResponse<IProducto>> {
-    let response = await API.post(`update/producto/${id}`, { data })
-    return response.data
+    let response
+    try {
+      response = await API.post(`update/producto/${id}`, { data })
+    } catch (error) {
+      deleteLocalStorage()
+    }
+    return response!.data
   }
 }
 
