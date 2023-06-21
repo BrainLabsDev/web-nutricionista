@@ -20,6 +20,13 @@ class CitaControlDataService {
     let response = await API.post('create/cita-control', { data })
     return response.data
   }
+  async update (
+    id: string,
+    data: ICitaControl
+  ): Promise<IResponse<ICitaControl>> {
+    let response = await API.post(`update/cita-control/${id}`, { data })
+    return response.data
+  }
 }
 
 export const citaControlDataServices = new CitaControlDataService()

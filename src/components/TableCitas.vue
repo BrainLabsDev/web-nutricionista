@@ -63,7 +63,8 @@ const columns = [
     label: 'Evolución',
     field: 'evolucion',
     align: 'center'
-  }
+  },
+  { name: 'accion', label: '', align: 'center' }
 ]
 
 const search = ref('')
@@ -105,7 +106,35 @@ const submit = async () => {
   if (myForm.value?.validate()) {
     try {
       if (form.id === null) {
+        // console.log('crea')
+
         const data = await citaControlDataServices.save({
+          peso: Number(form.peso),
+          musculo: Number(form.musculo),
+          grasas: Number(form.grasas),
+          porcentaje_grasa: Number(form.porcentaje_grasa),
+          cc: Number(form.cc),
+          grasa_viceral: Number(form.grasa_viceral),
+          evolucion: form.evolucion,
+          cliente_id: props.id
+        })
+        if (data.code === 200) {
+          // console.log(data.data.cita.id)
+          emits('cita', data.data.cita.id)
+          $q.notify({
+            color: 'green-4',
+            textColor: 'white',
+            icon: 'check_circle',
+            message: 'Cita agregada correctamente',
+            position: 'top-right'
+          })
+          await getItems()
+          closeModal()
+        }
+      } else {
+        // console.log('actualiza')
+
+        const data = await citaControlDataServices.update(form.id, {
           peso: Number(form.peso),
           musculo: Number(form.musculo),
           grasas: Number(form.grasas),
@@ -120,22 +149,12 @@ const submit = async () => {
             color: 'green-4',
             textColor: 'white',
             icon: 'check_circle',
-            message: 'Cita agregada correctamente',
+            message: 'Cita actualizada correctamente',
             position: 'top-right'
           })
           await getItems()
           closeModal()
         }
-      } else {
-        // const data = await citaControlDataServices.updateNutricionista(form.id, {
-        //   nombre: form.nombre,
-        //   email: form.email,
-        //   rol: form.rol.name
-        // })
-        // if (data.code === 200) {
-        //   await getItems()
-        //   closeModal()
-        // }
       }
     } catch (error) {
       $q.notify({
@@ -176,6 +195,23 @@ const disabled = computed(() => {
 const handleCita = (id: number) => {
   emits('cita', id)
 }
+
+const edit = (id: number) => {
+  const item = items.value.find(item => item.id === id)
+  if (item) {
+    form.id = item.id
+    form.peso = item.peso.toString()
+    form.musculo = item.musculo.toString()
+    form.grasas = item.grasas.toString()
+    form.porcentaje_grasa = item.porcentaje_grasa.toString()
+    form.cc = item.cc.toString()
+    form.grasa_viceral = item.grasa_viceral.toString()
+    form.evolucion = item.evolucion
+    prompt.value = true
+  }
+
+  prompt.value = true
+}
 </script>
 <template>
   <div class="q-mt-sm row justify-between items-center">
@@ -211,22 +247,33 @@ const handleCita = (id: number) => {
           </q-btn>
         </q-td>
       </template>
+      <template v-slot:body-cell-accion="props">
+        <q-td :props="props">
+          <q-btn
+            round
+            color="primary"
+            :icon="'o_edit'"
+            small
+            @click="edit(props.row.id)"
+          />
+        </q-td>
+      </template>
     </q-table>
   </div>
   <q-dialog v-model="prompt" persistent>
     <q-card style="min-width: 775px; border-radius: 40px" class="q-pa-lg">
       <q-card-section>
         <div class="text-h6">
-          {{ form.id === null ? 'Nuevo registro' : 'Actualizar Nutricionista' }}
+          {{ form.id === null ? 'Nueva cita' : 'Actualizar Cita' }}
         </div>
       </q-card-section>
 
       <q-form ref="myForm">
         <q-card-section class="row q-col-gutter-sm">
           <div class="col-4">
+            <label for="">Peso</label>
             <q-input
               outlined
-              placeholder="Peso"
               dense
               v-model="form.peso"
               autofocus
@@ -235,6 +282,7 @@ const handleCita = (id: number) => {
             />
           </div>
           <div class="col-4">
+            <label for="">Músculo</label>
             <q-input
               outlined
               placeholder="Músculo"
@@ -246,6 +294,7 @@ const handleCita = (id: number) => {
             />
           </div>
           <div class="col-4">
+            <label for="">Grasas</label>
             <q-input
               outlined
               placeholder="Grasas"
@@ -257,6 +306,7 @@ const handleCita = (id: number) => {
             />
           </div>
           <div class="col-4">
+            <label for="">Porcentaje de grasa</label>
             <q-input
               outlined
               placeholder="Porcentaje de grasa"
@@ -268,6 +318,7 @@ const handleCita = (id: number) => {
             />
           </div>
           <div class="col-4">
+            <label for="">Grasa visceral</label>
             <q-input
               outlined
               placeholder="Grasa visceral"
@@ -279,6 +330,7 @@ const handleCita = (id: number) => {
             />
           </div>
           <div class="col-4">
+            <label for="">CC</label>
             <q-input
               outlined
               placeholder="CC"
@@ -290,6 +342,7 @@ const handleCita = (id: number) => {
             />
           </div>
           <div class="col-12">
+            <label for="">Evolución</label>
             <q-input
               outlined
               placeholder="Evolucion"
