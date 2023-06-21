@@ -45,7 +45,6 @@ const columns = [
     field: 'email',
     align: 'center'
   },
-
   { name: 'accion', label: '', align: 'center' }
 ]
 
