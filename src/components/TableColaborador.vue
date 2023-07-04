@@ -25,6 +25,7 @@ const columns = [
 const myForm = ref<HTMLFormElement | null>(null)
 const items = ref<INutri[]>([])
 const prompt = ref(false)
+const confirm = ref(false)
 const form = reactive({
   id: null,
   nombre: '',
@@ -134,6 +135,10 @@ const handleEdit = (data: any) => {
   form.rol = data.row.rol
   prompt.value = true
 }
+const getDelete = (id: string) => {
+  confirm.value = true
+  console.log(id)
+}
 </script>
 
 <template>
@@ -158,13 +163,27 @@ const handleEdit = (data: any) => {
       rows-per-page-label="Filas por página"
       :rows-per-page-options="[5]"
     >
+      <template v-slot:body-cell-rol="props">
+        <q-td key="rol" :props="props">
+          {{ props.row.rol }}
+        </q-td>
+      </template>
       <template v-slot:body-cell-accion="props">
         <q-td :props="props">
           <q-btn
             round
             color="primary"
             :icon="'o_edit'"
+            size="sm"
             @click="handleEdit(props)"
+          />
+          <q-btn
+            round
+            color="red"
+            :icon="'o_delete'"
+            size="sm"
+            class="q-ml-sm"
+            @click="getDelete(props.row.id)"
           />
           <!-- <div>
             <q-btn flat round color="black" icon="more_vert">
@@ -251,6 +270,20 @@ const handleEdit = (data: any) => {
           style="width: 175px"
           @click="submit"
         />
+      </q-card-actions>
+    </q-card>
+  </q-dialog>
+
+  <q-dialog v-model="confirm" persistent>
+    <q-card>
+      <q-card-section class="row items-center">
+        <!-- <q-avatar icon="o_delete" color="red" text-color="white" size="40px" /> -->
+        <span class="q-ml-sm">Se eliminara la siguiente nutricionista</span>
+      </q-card-section>
+
+      <q-card-actions align="right">
+        <q-btn flat label="Cancelar" color="primary" v-close-popup />
+        <q-btn flat label="Eliminar" color="red" v-close-popup />
       </q-card-actions>
     </q-card>
   </q-dialog>

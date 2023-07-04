@@ -84,6 +84,7 @@
                   v-model="formulario.sexo"
                   hide-hint
                   label="Seleccione el sexo"
+                  style="font-size: 14px!important;"
                   :options="[
                     { label: 'Masculino', value: 'M' },
                     { label: 'Femenino', value: 'F' }
@@ -116,6 +117,7 @@
                   dense
                   v-model="formulario.actividad_fisica_id"
                   label="Seleccione la cantidad de actividad física semanal"
+                  style="font-size: 14px!important;"
                   :options="
                     actividades.map(item => {
                       return {
@@ -155,6 +157,7 @@
                   dense
                   v-model="formulario.objetivo_id"
                   label="Seleccione el objetivo actual"
+                  style="font-size: 14px!important;"
                   :options="
                     objetivos.map(item => {
                       return {
@@ -193,6 +196,7 @@
                   outlined
                   dense
                   v-model="formulario.alergias"
+                  style="font-size: 14px!important;"
                   placeholder="Ingrese alguna alergia"
                   use-input
                   use-chips
@@ -211,6 +215,7 @@
                   dense
                   v-model="formulario.condiciones_medicas"
                   placeholder="Ingrese alguna condición médica"
+                  style="font-size: 14px!important;"
                   use-input
                   use-chips
                   multiple
@@ -286,6 +291,7 @@
                   dense
                   v-model="formulario.consultorio_id"
                   label="Seleccione el consultorio"
+                  style="font-size: 14px!important;"
                   :options="
                     consultorios.map(item => {
                       return {
@@ -312,6 +318,7 @@
                   outlined
                   dense
                   v-model="formulario.nutricionista_id"
+                  style="font-size: 14px!important;"
                   label="Elegir nutricionista"
                   :options="
                     nutricionistas.map(item => {

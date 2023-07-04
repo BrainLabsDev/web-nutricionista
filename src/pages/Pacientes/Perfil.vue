@@ -7,6 +7,7 @@
         color="primary"
         fab
         text-color="white"
+        size="md"
         :icon="'o_edit'"
         :to="{ name: 'EditarPaciente', params: { id: paciente.id } }"
       />

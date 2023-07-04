@@ -54,6 +54,7 @@ const acceso = ref(null)
 const consultorio = ref(null)
 const colaborador = ref(null)
 const showFilters = ref(false)
+const confirm = ref(false)
 
 const options = [
   { label: 'Todos', value: null },
@@ -157,6 +158,11 @@ const getPerfil = (id: string) => {
 const getEditar = (id: string) => {
   router.push({ name: 'EditarPaciente', params: { id } })
 }
+
+const getDelete = (id: string) => {
+  confirm.value = true
+  console.log(id)
+}
 </script>
 <template>
   <div class="q-mt-lg q-pt-lg">
@@ -194,17 +200,6 @@ const getEditar = (id: string) => {
       </div>
     </div>
     <div class="row q-col-gutter-sm q-mt-sm" v-if="showFilters">
-      <!-- <div class="col-2">
-        <q-input
-          class="q-mr-xs"
-          v-model="fecha"
-          type="date"
-          outlined
-          dense
-          label="Fecha"
-          bg-color="white"
-        />
-      </div> -->
       <div class="col-2">
         <q-select
           class="q-mr-xs"
@@ -278,13 +273,6 @@ const getEditar = (id: string) => {
       <template v-slot:body-cell-nombre="props">
         <q-td key="cita" :props="props">
           {{ props.row.nombre_completo }}
-          <!-- {{
-            props.row.nombre +
-            ' ' +
-            props.row.apellido_paterno +
-            ' ' +
-            props.row.apellido_materno
-          }} -->
         </q-td>
       </template>
       <template v-slot:body-cell-cita="props">
@@ -346,10 +334,32 @@ const getEditar = (id: string) => {
             round
             color="primary"
             :icon="'o_visibility'"
+            size="sm"
             @click="getPerfil(props.row.id)"
+          />
+          <q-btn
+            round
+            color="red"
+            :icon="'o_delete'"
+            size="sm"
+            class="q-ml-sm"
+            @click="getDelete(props.row.id)"
           />
         </q-td>
       </template>
     </q-table>
+    <q-dialog v-model="confirm" persistent>
+      <q-card>
+        <q-card-section class="row items-center">
+          <!-- <q-avatar icon="o_delete" color="red" text-color="white" size="40px" /> -->
+          <span class="q-ml-sm">Se eliminara el siguiente paciente</span>
+        </q-card-section>
+
+        <q-card-actions align="right">
+          <q-btn flat label="Cancelar" color="primary" v-close-popup />
+          <q-btn flat label="Eliminar" color="red" v-close-popup />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
   </div>
 </template>
