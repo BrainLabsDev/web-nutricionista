@@ -36,6 +36,7 @@ const columns = [
 
 const search = ref('')
 const loading = ref(false)
+const confirm = ref(false)
 const items = ref<IProducto[]>([])
 
 onMounted(async () => {
@@ -68,6 +69,11 @@ const itemsFiltered = computed(() => {
 
 const getEditar = (id: string) => {
   router.push({ name: 'EditarProducto', params: { id } })
+}
+
+const getDelete = (id: string) => {
+  confirm.value = true
+  console.log(id)
 }
 </script>
 <template>
@@ -115,7 +121,16 @@ const getEditar = (id: string) => {
             round
             color="primary"
             :icon="'o_edit'"
+            size="sm"
             @click="getEditar(props.row.id)"
+          />
+          <q-btn
+            round
+            color="red"
+            :icon="'o_delete'"
+            size="sm"
+            class="q-ml-sm"
+            @click="getDelete(props.row.id)"
           />
           <!-- <q-btn flat round color="black" icon="more_vert">
             <q-menu>
@@ -133,5 +148,18 @@ const getEditar = (id: string) => {
         </q-td>
       </template>
     </q-table>
+    <q-dialog v-model="confirm" persistent>
+      <q-card>
+        <q-card-section class="row items-center">
+          <!-- <q-avatar icon="o_delete" color="red" text-color="white" size="40px" /> -->
+          <span class="q-ml-sm">Se eliminara el siguiente producto</span>
+        </q-card-section>
+
+        <q-card-actions align="right">
+          <q-btn flat label="Cancelar" color="primary" v-close-popup />
+          <q-btn flat label="Eliminar" color="red" v-close-popup />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
   </div>
 </template>

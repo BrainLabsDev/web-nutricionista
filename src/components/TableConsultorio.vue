@@ -25,6 +25,7 @@ const myForm = ref<HTMLFormElement | null>(null)
 
 const items = ref<IClinic[]>([])
 const prompt = ref(false)
+const confirm = ref(false)
 const form = reactive({
   id: null,
   nombre: '',
@@ -116,6 +117,11 @@ const handleEdit = (data: any) => {
   form.direccion = data.row.address
   prompt.value = true
 }
+
+const getDelete = (id: string) => {
+  confirm.value = true
+  console.log(id)
+}
 </script>
 
 <template>
@@ -150,19 +156,17 @@ const handleEdit = (data: any) => {
             round
             color="primary"
             :icon="'o_edit'"
+            size="sm"
             @click="handleEdit(props)"
           />
-          <!-- <div>
-            <q-btn flat round color="black" icon="more_vert">
-              <q-menu>
-                <q-list style="min-width: 100px">
-                  <q-item clickable v-close-popup @click="handleEdit(props)">
-                    <q-item-section>Editar</q-item-section>
-                  </q-item>
-                </q-list>
-              </q-menu>
-            </q-btn>
-          </div> -->
+          <q-btn
+            round
+            color="red"
+            :icon="'o_delete'"
+            size="sm"
+            class="q-ml-sm"
+            @click="getDelete(props.row.id)"
+          />
         </q-td>
       </template>
     </q-table>
@@ -229,6 +233,19 @@ const handleEdit = (data: any) => {
           @click="submit"
           style="width: 175px"
         />
+      </q-card-actions>
+    </q-card>
+  </q-dialog>
+
+  <q-dialog v-model="confirm" persistent>
+    <q-card>
+      <q-card-section class="row items-center">
+        <span class="q-ml-sm">Se eliminara el siguiente consultorio</span>
+      </q-card-section>
+
+      <q-card-actions align="right">
+        <q-btn flat label="Cancelar" color="primary" v-close-popup />
+        <q-btn flat label="Eliminar" color="red" v-close-popup />
       </q-card-actions>
     </q-card>
   </q-dialog>

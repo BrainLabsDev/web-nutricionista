@@ -80,6 +80,7 @@
                 >
                 <q-select
                   outlined
+                  style="font-size: 14px!important;"
                   dense
                   v-model="formulario.sexo"
                   hide-hint
@@ -116,6 +117,7 @@
                   dense
                   v-model="formulario.actividad_fisica_id"
                   label="Seleccione la cantidad de actividad física semanal"
+                  style="font-size: 14px!important;"
                   :options="
                     actividades.map(item => {
                       return {
@@ -155,6 +157,7 @@
                   dense
                   v-model="formulario.objetivo_id"
                   label="Seleccione el objetivo actual"
+                  style="font-size: 14px!important;"
                   :options="
                     objetivos.map(item => {
                       return {
@@ -194,6 +197,7 @@
                   dense
                   v-model="formulario.alergias"
                   placeholder="Ingrese alguna alergia"
+                  style="font-size: 14px!important;"
                   use-input
                   use-chips
                   multiple
@@ -210,6 +214,7 @@
                   outlined
                   dense
                   v-model="formulario.condiciones_medicas"
+                  style="font-size: 14px!important;"
                   placeholder="Ingrese alguna condición médica"
                   use-input
                   use-chips
@@ -285,6 +290,7 @@
                   outlined
                   dense
                   v-model="formulario.consultorio_id"
+                  style="font-size: 14px!important;"
                   label="Seleccione el consultorio"
                   :options="
                     consultorios.map(item => {
@@ -312,6 +318,7 @@
                   outlined
                   dense
                   v-model="formulario.nutricionista_id"
+                  style="font-size: 14px!important;"
                   label="Elegir nutricionista"
                   :options="
                     nutricionistas.map(item => {

@@ -49,6 +49,15 @@ class ProductoDataService {
     }
     return response!.data
   }
+  async deleteProducto (id: string): Promise<IResponse<IProducto>> {
+    let response
+    try {
+      response = await API.delete(`delete/producto/${id}`, {})
+    } catch (error) {
+      deleteLocalStorage()
+    }
+    return response!.data
+  }
 }
 
 export const productoDataServices = new ProductoDataService()

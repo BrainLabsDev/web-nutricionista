@@ -22,7 +22,7 @@ class CategoryDataService {
   ): Promise<IResponse<ICategory>> {
     let response
     try {
-      let response = await API.get('show/categoria/{{id}}/subcategorias', {
+       response = await API.get('show/categoria/{{id}}/subcategorias', {
         params: {
           id
         }

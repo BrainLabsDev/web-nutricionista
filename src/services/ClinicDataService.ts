@@ -28,6 +28,15 @@ class ClinicDataService {
     })
     return response.data
   }
+  async deleteClinica (id: string): Promise<IResponse<any>> {
+    let response
+    try {
+      response = await API.delete(`delete/consultorio/${id}`, {})
+    } catch (error) {
+      deleteLocalStorage()
+    }
+    return response!.data
+  }
 }
 
 export const clinicDataServices = new ClinicDataService()

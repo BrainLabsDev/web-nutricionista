@@ -60,7 +60,7 @@ const columns = [
   },
   {
     name: 'evolucion',
-    label: 'Evolución',
+    label: 'Notas',
     field: 'evolucion',
     align: 'center'
   },
@@ -271,7 +271,7 @@ const edit = (id: number) => {
       <q-form ref="myForm">
         <q-card-section class="row q-col-gutter-sm">
           <div class="col-4">
-            <label for="">Peso</label>
+            <label for="">Peso (Kg)</label>
             <q-input
               outlined
               dense
@@ -282,7 +282,7 @@ const edit = (id: number) => {
             />
           </div>
           <div class="col-4">
-            <label for="">Músculo</label>
+            <label for="">Músculo (Kg)</label>
             <q-input
               outlined
               placeholder="Músculo"
@@ -294,7 +294,7 @@ const edit = (id: number) => {
             />
           </div>
           <div class="col-4">
-            <label for="">Grasas</label>
+            <label for="">Grasas (Kg)</label>
             <q-input
               outlined
               placeholder="Grasas"
@@ -306,7 +306,7 @@ const edit = (id: number) => {
             />
           </div>
           <div class="col-4">
-            <label for="">Porcentaje de grasa</label>
+            <label for="">Porcentaje de grasa (%)</label>
             <q-input
               outlined
               placeholder="Porcentaje de grasa"
@@ -318,7 +318,7 @@ const edit = (id: number) => {
             />
           </div>
           <div class="col-4">
-            <label for="">Grasa visceral</label>
+            <label for="">Grasa visceral (Kg)</label>
             <q-input
               outlined
               placeholder="Grasa visceral"
@@ -342,15 +342,15 @@ const edit = (id: number) => {
             />
           </div>
           <div class="col-12">
-            <label for="">Evolución</label>
+            <label for="">Notas (Uso Interno)</label>
             <q-input
               outlined
-              placeholder="Evolucion"
+              placeholder="Notas"
               dense
               v-model="form.evolucion"
               autofocus
               lazy-rules
-              :rules="[val => !!val || 'La evolución es requerido']"
+              :rules="[val => !!val || 'Las notas es requerida']"
             />
           </div>
         </q-card-section>
