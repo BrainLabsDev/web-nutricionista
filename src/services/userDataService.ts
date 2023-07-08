@@ -2,12 +2,13 @@ import { API } from 'src/common/api'
 import { IResponse } from 'src/interfaces/Response'
 
 class UserDataService {
-  async userDelete (id: any): Promise<IResponse<any>> {
-    let response = await API.get('delete/user/{{id}}', {
-      params: {
-        id
-      }
-    })
+  async deleteUser (id: string): Promise<IResponse<any>> {
+    let response
+    try {
+      response = await API.delete(`delete/user/${id}`, {})
+    } catch (error) {
+      // deleteLocalStorage()
+    }
     return response!.data
   }
 }

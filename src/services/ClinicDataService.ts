@@ -28,7 +28,8 @@ class ClinicDataService {
     })
     return response.data
   }
-  async deleteClinica (id: string): Promise<IResponse<any>> {
+
+  async deleteClinic (id: string): Promise<IResponse<any>> {
     let response
     try {
       response = await API.delete(`delete/consultorio/${id}`, {})

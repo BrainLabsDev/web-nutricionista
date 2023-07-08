@@ -13,6 +13,7 @@ class NutriDataService {
     } catch (error) {
       deleteLocalStorage()
     }
+
     return response!.data
   }
 

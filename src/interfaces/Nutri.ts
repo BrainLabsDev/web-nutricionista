@@ -4,5 +4,5 @@ export interface INutri {
   id?: number
   nombre: string
   email: string
-  rol: number | null
+  rol: number | string | IRole
 }
