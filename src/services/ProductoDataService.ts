@@ -49,6 +49,7 @@ class ProductoDataService {
     }
     return response!.data
   }
+
   async deleteProducto (id: string): Promise<IResponse<IProducto>> {
     let response
     try {

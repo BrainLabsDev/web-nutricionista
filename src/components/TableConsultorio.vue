@@ -24,6 +24,7 @@ const columns = [
 const myForm = ref<HTMLFormElement | null>(null)
 
 const items = ref<IClinic[]>([])
+const idConsultorio = ref('')
 const prompt = ref(false)
 const confirm = ref(false)
 const form = reactive({
@@ -51,6 +52,7 @@ const getItems = async () => {
   }
   loading.value = false
 }
+
 const submit = async () => {
   if (myForm.value?.validate()) {
     try {
@@ -120,7 +122,36 @@ const handleEdit = (data: any) => {
 
 const getDelete = (id: string) => {
   confirm.value = true
-  console.log(id)
+  idConsultorio.value = id
+}
+
+const deleteConsultorio = async () => {
+  try {
+    const data = await clinicDataServices.deleteClinic(idConsultorio.value)
+
+    if (data.code === 200) {
+      await getItems()
+      $q.notify({
+        color: 'green-4',
+        textColor: 'white',
+        icon: 'check_circle',
+        message: 'Se elimino correctamente',
+        position: 'top-right'
+      })
+    }
+  } catch (error) {
+    $q.notify({
+      color: 'red-4',
+      textColor: 'white',
+      icon: 'error',
+      message: 'Ocurrió un error',
+      position: 'top-right'
+    })
+    console.log(error)
+  }
+
+  confirm.value = false
+  idConsultorio.value = ''
 }
 </script>
 
@@ -245,7 +276,7 @@ const getDelete = (id: string) => {
 
       <q-card-actions align="right">
         <q-btn flat label="Cancelar" color="primary" v-close-popup />
-        <q-btn flat label="Eliminar" color="red" v-close-popup />
+        <q-btn flat label="Eliminar" color="red" @click="deleteConsultorio" />
       </q-card-actions>
     </q-card>
   </q-dialog>

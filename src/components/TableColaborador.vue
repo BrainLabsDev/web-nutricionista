@@ -5,6 +5,7 @@ import { nutriDataServices } from '../services/NutriDataService'
 import { roleDataServices } from '../services/RoleDataService'
 import { IRole } from '../interfaces/Role'
 import { useQuasar } from 'quasar'
+import { userDataServices } from '../services/userDataService'
 const $q = useQuasar()
 const columns = [
   {
@@ -19,11 +20,12 @@ const columns = [
     label: 'Email',
     field: 'email'
   },
-  { name: 'rol', label: 'Rol', field: 'rol', align: 'center' },
+  { name: 'rol', label: 'Rol', field: 'rol.name', align: 'center' },
   { name: 'accion', label: 'Acción', align: 'center' }
 ]
 const myForm = ref<HTMLFormElement | null>(null)
 const items = ref<INutri[]>([])
+const idNutri = ref('')
 const prompt = ref(false)
 const confirm = ref(false)
 const form = reactive({
@@ -59,7 +61,14 @@ const getItems = async () => {
   try {
     const data = await nutriDataServices.getNutriologas()
     if (data.code === 200) {
+      // data.data.forEach(item => {
+      //   item.rol = JSON.parse(item.rol)
+      // })
       items.value = data.data
+
+      items.value.forEach(item => {
+        item.rol = JSON.parse(item.rol)
+      })
     }
   } catch (error) {
     console.log(error)
@@ -135,9 +144,39 @@ const handleEdit = (data: any) => {
   form.rol = data.row.rol
   prompt.value = true
 }
+
 const getDelete = (id: string) => {
   confirm.value = true
-  console.log(id)
+  idNutri.value = id
+}
+
+const deleteUser = async () => {
+  try {
+    const data = await userDataServices.deleteUser(idNutri.value)
+
+    if (data.code === 200) {
+      await getItems()
+      $q.notify({
+        color: 'green-4',
+        textColor: 'white',
+        icon: 'check_circle',
+        message: 'Se elimino correctamente',
+        position: 'top-right'
+      })
+    }
+  } catch (error) {
+    $q.notify({
+      color: 'red-4',
+      textColor: 'white',
+      icon: 'error',
+      message: 'Ocurrió un error',
+      position: 'top-right'
+    })
+    console.log(error)
+  }
+
+  confirm.value = false
+  idNutri.value = ''
 }
 </script>
 
@@ -165,7 +204,7 @@ const getDelete = (id: string) => {
     >
       <template v-slot:body-cell-rol="props">
         <q-td key="rol" :props="props">
-          {{ props.row.rol }}
+          {{ props.row.rol.name }}
         </q-td>
       </template>
       <template v-slot:body-cell-accion="props">
@@ -185,17 +224,6 @@ const getDelete = (id: string) => {
             class="q-ml-sm"
             @click="getDelete(props.row.id)"
           />
-          <!-- <div>
-            <q-btn flat round color="black" icon="more_vert">
-              <q-menu>
-                <q-list style="min-width: 100px">
-                  <q-item clickable v-close-popup @click="handleEdit(props)">
-                    <q-item-section>Editar</q-item-section>
-                  </q-item>
-                </q-list>
-              </q-menu>
-            </q-btn>
-          </div> -->
         </q-td>
       </template>
     </q-table>
@@ -277,13 +305,12 @@ const getDelete = (id: string) => {
   <q-dialog v-model="confirm" persistent>
     <q-card>
       <q-card-section class="row items-center">
-        <!-- <q-avatar icon="o_delete" color="red" text-color="white" size="40px" /> -->
-        <span class="q-ml-sm">Se eliminara la siguiente nutricionista</span>
+        <span class="q-ml-sm">Se eliminará la siguiente nutricionista</span>
       </q-card-section>
 
       <q-card-actions align="right">
         <q-btn flat label="Cancelar" color="primary" v-close-popup />
-        <q-btn flat label="Eliminar" color="red" v-close-popup />
+        <q-btn flat label="Eliminar" color="red" @click="deleteUser" />
       </q-card-actions>
     </q-card>
   </q-dialog>

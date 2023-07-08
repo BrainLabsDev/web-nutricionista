@@ -6,7 +6,9 @@ import { IPaciente } from '../interfaces/Paciente'
 import { pacienteDataServices } from 'src/services/PacienteDataService'
 import { nutriDataServices } from '../services/NutriDataService'
 import { clinicDataServices } from '../services/ClinicDataService'
-
+import { userDataServices } from 'src/services/userDataService'
+import { useQuasar } from 'quasar'
+const $q = useQuasar()
 const router = useRouter()
 const columns = [
   {
@@ -55,7 +57,7 @@ const consultorio = ref(null)
 const colaborador = ref(null)
 const showFilters = ref(false)
 const confirm = ref(false)
-
+const idPaciente = ref('')
 const options = [
   { label: 'Todos', value: null },
   { label: 'Activos', value: true },
@@ -155,13 +157,39 @@ const pacientesFiltered = computed(() => {
 const getPerfil = (id: string) => {
   router.push({ name: 'PerfilPaciente', params: { id } })
 }
-const getEditar = (id: string) => {
-  router.push({ name: 'EditarPaciente', params: { id } })
-}
 
 const getDelete = (id: string) => {
   confirm.value = true
-  console.log(id)
+  idPaciente.value = id
+}
+
+const deleteUser = async () => {
+  try {
+    const data = await userDataServices.deleteUser(idPaciente.value)
+
+    if (data.code === 200) {
+      await getItems()
+      $q.notify({
+        color: 'green-4',
+        textColor: 'white',
+        icon: 'check_circle',
+        message: 'Se elimino correctamente',
+        position: 'top-right'
+      })
+    }
+  } catch (error) {
+    $q.notify({
+      color: 'red-4',
+      textColor: 'white',
+      icon: 'error',
+      message: 'Ocurrió un error',
+      position: 'top-right'
+    })
+    console.log(error)
+  }
+
+  confirm.value = false
+  idPaciente.value = ''
 }
 </script>
 <template>
@@ -357,7 +385,7 @@ const getDelete = (id: string) => {
 
         <q-card-actions align="right">
           <q-btn flat label="Cancelar" color="primary" v-close-popup />
-          <q-btn flat label="Eliminar" color="red" v-close-popup />
+          <q-btn flat label="Eliminar" color="red" @click="deleteUser" />
         </q-card-actions>
       </q-card>
     </q-dialog>

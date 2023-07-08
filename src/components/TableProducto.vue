@@ -4,6 +4,8 @@ import { IProducto } from '../interfaces/Producto'
 import { productoDataServices } from '../services/ProductoDataService'
 import { ref, onMounted } from 'vue'
 import { computed } from '@vue/reactivity'
+import { useQuasar } from 'quasar'
+const $q = useQuasar()
 
 const router = useRouter()
 const columns = [
@@ -37,6 +39,7 @@ const columns = [
 const search = ref('')
 const loading = ref(false)
 const confirm = ref(false)
+const idProducto = ref('')
 const items = ref<IProducto[]>([])
 
 onMounted(async () => {
@@ -73,7 +76,36 @@ const getEditar = (id: string) => {
 
 const getDelete = (id: string) => {
   confirm.value = true
-  console.log(id)
+  idProducto.value = id
+}
+
+const deleteProducto = async () => {
+  try {
+    const data = await productoDataServices.deleteProducto(idProducto.value)
+
+    if (data.code === 200) {
+      await getItems()
+      $q.notify({
+        color: 'green-4',
+        textColor: 'white',
+        icon: 'check_circle',
+        message: 'Se elimino correctamente',
+        position: 'top-right'
+      })
+    }
+  } catch (error) {
+    $q.notify({
+      color: 'red-4',
+      textColor: 'white',
+      icon: 'error',
+      message: 'Ocurrió un error',
+      position: 'top-right'
+    })
+    console.log(error)
+  }
+
+  confirm.value = false
+  idProducto.value = ''
 }
 </script>
 <template>
@@ -132,19 +164,6 @@ const getDelete = (id: string) => {
             class="q-ml-sm"
             @click="getDelete(props.row.id)"
           />
-          <!-- <q-btn flat round color="black" icon="more_vert">
-            <q-menu>
-              <q-list style="min-width: 100px">
-                <q-item
-                  clickable
-                  v-close-popup
-                  @click="getEditar(props.row.id)"
-                >
-                  <q-item-section>Editar</q-item-section>
-                </q-item>
-              </q-list>
-            </q-menu>
-          </q-btn> -->
         </q-td>
       </template>
     </q-table>
@@ -157,7 +176,7 @@ const getDelete = (id: string) => {
 
         <q-card-actions align="right">
           <q-btn flat label="Cancelar" color="primary" v-close-popup />
-          <q-btn flat label="Eliminar" color="red" v-close-popup />
+          <q-btn flat label="Eliminar" color="red" @click="deleteProducto" />
         </q-card-actions>
       </q-card>
     </q-dialog>
