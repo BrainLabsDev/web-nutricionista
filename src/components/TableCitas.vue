@@ -24,19 +24,19 @@ const columns = [
   },
   {
     name: 'peso',
-    label: 'Peso',
+    label: 'Peso (Kg)',
     field: 'peso',
     align: 'center'
   },
   {
     name: 'musculo',
-    label: 'Músculo',
+    label: 'Músculo (Kg)',
     field: 'musculo',
     align: 'center'
   },
   {
     name: 'grasas',
-    label: 'Grasas',
+    label: 'Grasas (Kg)',
     field: 'grasas',
     align: 'center'
   },
@@ -54,7 +54,7 @@ const columns = [
   },
   {
     name: 'grasa_viceral',
-    label: 'Grasa visceral',
+    label: 'Grasa visceral (Kg)',
     field: 'grasa_viceral',
     align: 'center'
   },
