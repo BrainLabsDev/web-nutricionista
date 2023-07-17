@@ -14,7 +14,7 @@
     </div>
     <div class="row q-mx-md q-mt-sm">
       <div class="col-12 q-mb-xs">
-        <q-card flat bordered class="row" style="height: 240px">
+        <q-card flat bordered class="row" style="height: 250px">
           <q-card-section class="col-3" style="border-right: 1px solid #e2e8f0">
             <div class="column items-center justify-center">
               <q-avatar size="80px" class="q-mt-sm">
@@ -62,6 +62,14 @@
                 class="text-weight-bold"
                 style="font-size: 16px; color: #94a3b8"
                 >{{ getEdad }}</span
+              >
+            </div>
+            <div class="row justify-between q-mb-sm" style="width: 230px">
+              <span class="text-weight-bold" style="font-size: 16px">Altura</span>
+              <span
+                class="text-weight-bold"
+                style="font-size: 16px; color: #94a3b8"
+                >{{ getAltura}}</span
               >
             </div>
             <div class="row justify-between q-mb-sm" style="width: 230px">
@@ -199,6 +207,11 @@ const getEdad = computed(() => {
   const fechaNacimiento = new Date(paciente.value.fecha_nacimiento)
 
   return calcularEdad(fechaNacimiento)
+})
+const getAltura = computed(() => {
+
+
+  return paciente.value.altura || 'NA'
 })
 
 const acceso = ref(false)

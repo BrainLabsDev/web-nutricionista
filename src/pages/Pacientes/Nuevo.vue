@@ -84,13 +84,29 @@
                   v-model="formulario.sexo"
                   hide-hint
                   label="Seleccione el sexo"
-                  style="font-size: 14px!important;"
+                  style="font-size: 14px !important"
                   :options="[
                     { label: 'Masculino', value: 'M' },
                     { label: 'Femenino', value: 'F' }
                   ]"
                   map-options
                   emit-value
+                  lazy-rules
+                  :rules="[val => !!val || 'Este campo es obligatorio']"
+                />
+              </div>
+              <div class="col-4">
+                <label
+                  for="apellido_materno"
+                  class="q-ml-xs text-subtitle2 q-mb-none"
+                  >Altura (cm)</label
+                >
+                <q-input
+                  id="altura"
+                  outlined
+                  dense
+                  v-model="formulario.estatura"
+                  placeholder="Escribe la altura (cm)"
                   lazy-rules
                   :rules="[val => !!val || 'Este campo es obligatorio']"
                 />
@@ -117,7 +133,7 @@
                   dense
                   v-model="formulario.actividad_fisica_id"
                   label="Seleccione la cantidad de actividad física semanal"
-                  style="font-size: 14px!important;"
+                  style="font-size: 14px !important"
                   :options="
                     actividades.map(item => {
                       return {
@@ -157,7 +173,7 @@
                   dense
                   v-model="formulario.objetivo_id"
                   label="Seleccione el objetivo actual"
-                  style="font-size: 14px!important;"
+                  style="font-size: 14px !important"
                   :options="
                     objetivos.map(item => {
                       return {
@@ -196,7 +212,7 @@
                   outlined
                   dense
                   v-model="formulario.alergias"
-                  style="font-size: 14px!important;"
+                  style="font-size: 14px !important"
                   placeholder="Ingrese alguna alergia"
                   use-input
                   use-chips
@@ -215,7 +231,7 @@
                   dense
                   v-model="formulario.condiciones_medicas"
                   placeholder="Ingrese alguna condición médica"
-                  style="font-size: 14px!important;"
+                  style="font-size: 14px !important"
                   use-input
                   use-chips
                   multiple
@@ -291,7 +307,7 @@
                   dense
                   v-model="formulario.consultorio_id"
                   label="Seleccione el consultorio"
-                  style="font-size: 14px!important;"
+                  style="font-size: 14px !important"
                   :options="
                     consultorios.map(item => {
                       return {
@@ -318,7 +334,7 @@
                   outlined
                   dense
                   v-model="formulario.nutricionista_id"
-                  style="font-size: 14px!important;"
+                  style="font-size: 14px !important"
                   label="Elegir nutricionista"
                   :options="
                     nutricionistas.map(item => {
@@ -394,6 +410,7 @@ const formulario = reactive<IPaciente>({
   apellido_materno: '',
   fecha_nacimiento: '',
   sexo: '',
+  estatura: 0,
   telefono: null,
   email: '',
   alergias: [],
@@ -469,6 +486,7 @@ const submit = async () => {
         apellido_materno: formulario.apellido_materno,
         fecha_nacimiento: formulario.fecha_nacimiento,
         sexo: formulario.sexo,
+        estatura: Number(formulario.estatura),
         telefono: Number(formulario.telefono),
         email: formulario.email,
         alergias: formulario.alergias,
@@ -478,8 +496,6 @@ const submit = async () => {
         consultorio_id: formulario.consultorio_id,
         nutricionista_id: formulario.nutricionista_id
       })
-
-      console.log(data)
 
       if (data.code === 200) {
         $q.notify({

@@ -95,6 +95,22 @@
                   :rules="[val => !!val || 'Este campo es obligatorio']"
                 />
               </div>
+              <div class="col-4">
+                <label
+                  for="apellido_materno"
+                  class="q-ml-xs text-subtitle2 q-mb-none"
+                  >Altura (cm)</label
+                >
+                <q-input
+                  id="altura"
+                  outlined
+                  dense
+                  v-model="formulario.estatura"
+                  placeholder="Escribe la altura (cm)"
+                  lazy-rules
+                  :rules="[val => !!val || 'Este campo es obligatorio']"
+                />
+              </div>
             </div>
           </q-card>
         </div>
@@ -400,6 +416,7 @@ let formulario = reactive<IPaciente>({
   apellido_materno: '',
   fecha_nacimiento: '',
   sexo: '',
+  estatura: 0,
   telefono: null,
   email: '',
   alergias: [],
@@ -424,6 +441,7 @@ onMounted(async () => {
     formulario.apellido_materno = res.data.user.apellido_materno
     formulario.fecha_nacimiento = res.data.user.fecha_nacimiento
     formulario.sexo = res.data.user.sexo
+    formulario.estatura = res.data.user.estatura
     formulario.telefono = res.data.user.telefono
     formulario.email = res.data.user.email
     formulario.actividad_fisica_id = res.data.user.actividad_fisica.id
@@ -475,6 +493,7 @@ const submit = async () => {
         apellido_materno: formulario.apellido_materno,
         fecha_nacimiento: formulario.fecha_nacimiento,
         sexo: formulario.sexo,
+        estatura: Number(formulario.estatura),
         telefono: Number(formulario.telefono),
         email: formulario.email,
         alergias: formulario.alergias,
