@@ -348,9 +348,6 @@ const edit = (id: number) => {
               placeholder="Notas"
               dense
               v-model="form.evolucion"
-              autofocus
-              lazy-rules
-              :rules="[val => !!val || 'Las notas es requerida']"
             />
           </div>
         </q-card-section>
