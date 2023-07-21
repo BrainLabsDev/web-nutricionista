@@ -107,8 +107,6 @@
                   dense
                   v-model="formulario.estatura"
                   placeholder="Escribe la altura (cm)"
-                  lazy-rules
-                  :rules="[val => !!val || 'Este campo es obligatorio']"
                 />
               </div>
             </div>
