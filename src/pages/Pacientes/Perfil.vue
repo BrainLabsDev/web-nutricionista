@@ -211,7 +211,7 @@ const getEdad = computed(() => {
 const getAltura = computed(() => {
 
 
-  return paciente.value.altura || 'NA'
+  return paciente.value.estatura || 'NA'
 })
 
 const acceso = ref(false)
