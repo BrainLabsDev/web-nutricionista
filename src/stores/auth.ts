@@ -29,8 +29,16 @@ export const useAuthStore = defineStore('auth', {
     },
     setLocalStorageWithTime (payload: any) {
       /* Cookies */
-      Cookies.set('user', payload.user, { expires: 100 })
-      Cookies.set('access_token', payload.token, { expires: 100 })
+      Cookies.set('user', payload.user, {
+        expires: 100,
+        domain: 'nutrimind.ia',
+        path: '/'
+      })
+      Cookies.set('access_token', payload.token, {
+        expires: 100,
+        domain: 'nutrimind.ia',
+        path: '/'
+      })
     },
     login (payload: any) {
       this.setUser(payload)
@@ -57,8 +65,8 @@ export const useAuthStore = defineStore('auth', {
       // LocalStorage.remove('access_token')
 
       /* Cookies */
-      Cookies.remove('user')
-      Cookies.remove('access_token')
+      Cookies.remove('user', { domain: 'nutrimind.ia', path: '/' })
+      Cookies.remove('access_token', { domain: 'nutrimind.ia', path: '/' })
       this.router.push('/login')
     }
   }
