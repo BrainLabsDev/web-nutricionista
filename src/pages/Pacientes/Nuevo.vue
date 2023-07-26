@@ -238,6 +238,18 @@
                   new-value-mode="add-unique"
                 />
               </div>
+              <div class="col-6">
+                <label for="apellido" class="q-ml-xs text-subtitle2 q-mb-none"
+                  >Registro de consumo</label
+                >
+                <q-input
+                  v-model="formulario.registro_consumo"
+                  outlined
+                  autogrow
+                  placeholder="Ingrese el registro de consumo"
+                  type="textarea"
+                />
+              </div>
             </div>
           </q-card>
         </div>
@@ -407,6 +419,7 @@ const formulario = reactive<IPaciente>({
   apellido_paterno: '',
   apellido_materno: '',
   fecha_nacimiento: '',
+  registro_consumo: '',
   sexo: '',
   estatura: 0,
   telefono: null,
@@ -483,6 +496,7 @@ const submit = async () => {
         apellido_paterno: formulario.apellido_paterno,
         apellido_materno: formulario.apellido_materno,
         fecha_nacimiento: formulario.fecha_nacimiento,
+        registro_consumo: formulario.registro_consumo,
         sexo: formulario.sexo,
         estatura: Number(formulario.estatura),
         telefono: Number(formulario.telefono),

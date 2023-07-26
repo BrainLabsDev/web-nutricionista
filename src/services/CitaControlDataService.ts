@@ -27,6 +27,16 @@ class CitaControlDataService {
     let response = await API.post(`update/cita-control/${id}`, { data })
     return response.data
   }
+
+  async deleteCita (id: string): Promise<IResponse<any>> {
+    let response
+    try {
+      response = await API.delete(`delete/cita-control/${id}`, {})
+    } catch (error) {
+      // deleteLocalStorage()
+    }
+    return response!.data
+  }
 }
 
 export const citaControlDataServices = new CitaControlDataService()

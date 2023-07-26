@@ -58,6 +58,11 @@ const essentialLinks: EssentialLinkProps[] = [
     title: 'Ajustes',
     icon: 'o_settings',
     link: '/ajustes'
+  },
+  {
+    title: 'Mi Perfil',
+    icon: 'face',
+    link: '/mi-perfil'
   }
 ]
 
