@@ -5,7 +5,7 @@ import { authDataServices } from '../../services/AuthDataService'
 import { useQuasar } from 'quasar'
 const $q = useQuasar()
 const store = useAuthStore()
-const { login } = store
+const { login, loginWithCookies } = store
 
 const myForm = ref(null)
 const myFormRecovery = ref(null)
@@ -48,7 +48,11 @@ async function handleSubmit () {
             message: 'Inicio sesión correctamente',
             position: 'top-right'
           })
-          login(data)
+          if (accept.value) {
+            loginWithCookies(data)
+          } else {
+            login(data)
+          }
         } else {
           message.value = msg || 'Error al iniciar sesión'
           $q.notify({
@@ -214,7 +218,8 @@ function handleClick () {
           </q-banner>
         </div>
 
-        <div class="row justify-center items-center q-mt-lg">
+        <div class="row justify-between items-center q-mt-lg">
+          <q-checkbox v-model="accept" label="Recordar contraseña" />
           <q-btn flat class="text-primary" @click.native="handleClick"
             >¿Has olvidado tu contraseña?</q-btn
           >
