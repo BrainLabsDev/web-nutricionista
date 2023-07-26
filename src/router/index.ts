@@ -1,6 +1,6 @@
 import { route } from 'quasar/wrappers'
 import { useAuthStore } from 'stores/auth'
-import { LocalStorage, SessionStorage } from 'quasar'
+import { LocalStorage, Cookies } from 'quasar'
 import { createRouter, createWebHistory } from 'vue-router'
 
 import routes from './routes'
@@ -31,15 +31,21 @@ export default route(function (/* { store, ssrContext } */) {
   })
 
   Router.beforeEach((to, from, next) => {
-    const access_token = SessionStorage.getItem('access_token')
-    const user = JSON.parse(SessionStorage.getItem('user') || '{}')
+
+    const access_token_cookie = Cookies.get('access_token')
+    const user_cookie = Cookies.get('user')
+
+
+
+    // const access_token = LocalStorage.getItem('access_token')
+    // const user = JSON.parse(LocalStorage.getItem('user') || '{}')
     const store = useAuthStore()
 
     const { setUser } = store
 
     if (to.matched.some(record => record.meta.requiresAuth)) {
-      if (access_token != null) {
-        setUser({ user: user, token: access_token })
+      if (access_token_cookie != null) {
+        setUser({ user: user_cookie, token: access_token_cookie })
         next()
       } else {
         next({ path: '/login' })
