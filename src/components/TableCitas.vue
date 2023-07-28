@@ -64,11 +64,12 @@ const columns = [
     field: 'evolucion',
     align: 'center'
   },
-  { name: 'accion', label: '', align: 'center' }
+  { name: 'accion', label: 'Acciones', align: 'center' }
 ]
 
-const search = ref('')
 const prompt = ref(false)
+const confirm = ref(false)
+const idCita = ref('')
 const myForm = ref<HTMLFormElement | null>(null)
 const loading = ref(false)
 const items = ref<ICitaControl[]>([])
@@ -212,6 +213,40 @@ const edit = (id: number) => {
 
   prompt.value = true
 }
+
+const getDelete = (id: string) => {
+  confirm.value = true
+  idCita.value = id
+}
+
+const deleteCita = async () => {
+  try {
+    const data = await citaControlDataServices.deleteCita(idCita.value)
+
+    if (data.code === 200) {
+      await getItems()
+      $q.notify({
+        color: 'green-4',
+        textColor: 'white',
+        icon: 'check_circle',
+        message: 'Se elimino correctamente',
+        position: 'top-right'
+      })
+    }
+  } catch (error) {
+    $q.notify({
+      color: 'red-4',
+      textColor: 'white',
+      icon: 'error',
+      message: 'Ocurrió un error',
+      position: 'top-right'
+    })
+    console.log(error)
+  }
+
+  confirm.value = false
+  idCita.value = ''
+}
 </script>
 <template>
   <div class="q-mt-sm row justify-between items-center">
@@ -232,9 +267,52 @@ const edit = (id: number) => {
       rows-per-page-label="Filas por página"
       :rows-per-page-options="[3, 5, 10]"
     >
+      <template v-slot:body-cell-peso="props">
+        <q-td key="peso" :props="props" auto-width>
+          {{ props.row.peso }}
+        </q-td>
+      </template>
+      <template v-slot:body-cell-musculo="props">
+        <q-td key="musculo" :props="props" auto-width>
+          {{ props.row.musculo }}
+        </q-td>
+      </template>
+      <template v-slot:body-cell-grasas="props">
+        <q-td key="grasas" :props="props" auto-width>
+          {{ props.row.grasas }}
+        </q-td>
+      </template>
+      <template v-slot:body-cell-porcentaje_grasa="props">
+        <q-td key="porcentaje_grasa" :props="props" auto-width>
+          {{ props.row.porcentaje_grasa }}
+        </q-td>
+      </template>
+      <template v-slot:body-cell-cc="props">
+        <q-td key="cc" :props="props" style="width: 80px;">
+          {{ props.row.cc }}
+        </q-td>
+      </template>
+      <template v-slot:body-cell-grasa_viceral="props">
+        <q-td key="grasa_viceral" :props="props" auto-width>
+          {{ props.row.grasa_viceral }}
+        </q-td>
+      </template>
+      <template v-slot:body-cell-evolucion="props">
+        <q-td key="evolucion" :props="props" auto-width>
+          <div
+            style="
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space: nowrap;
+              max-width: 500px;
+            "
+          >
+            {{ props.row.evolucion }}
+          </div>
+        </q-td>
+      </template>
       <template v-slot:body-cell-fecha_cita="props">
         <q-td key="fecha_cita" :props="props" auto-width>
-          <!-- {{ props.row.cita.fecha }} -->
           <q-btn
             rounded
             flat
@@ -248,13 +326,21 @@ const edit = (id: number) => {
         </q-td>
       </template>
       <template v-slot:body-cell-accion="props">
-        <q-td :props="props">
+        <q-td :props="props" auto-width>
           <q-btn
             round
             color="primary"
             :icon="'o_edit'"
-            small
+            size="sm"
+            class="q-mr-sm"
             @click="edit(props.row.id)"
+          />
+          <q-btn
+            round
+            color="red"
+            :icon="'o_delete'"
+            size="sm"
+            @click="getDelete(props.row.id)"
           />
         </q-td>
       </template>
@@ -346,8 +432,9 @@ const edit = (id: number) => {
             <q-input
               outlined
               placeholder="Notas"
-              dense
               v-model="form.evolucion"
+              autogrow
+              type="textarea"
             />
           </div>
         </q-card-section>
@@ -368,6 +455,18 @@ const edit = (id: number) => {
           :disabled="disabled"
           @click="submit"
         />
+      </q-card-actions>
+    </q-card>
+  </q-dialog>
+  <q-dialog v-model="confirm" persistent>
+    <q-card class="q-pa-sm">
+      <q-card-section class="row items-center">
+        <span class="q-ml-sm">Se eliminara la siguiente cita</span>
+      </q-card-section>
+
+      <q-card-actions align="right">
+        <q-btn flat label="Cancelar" color="primary" v-close-popup />
+        <q-btn flat label="Eliminar" color="red" @click="deleteCita" />
       </q-card-actions>
     </q-card>
   </q-dialog>

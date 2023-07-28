@@ -100,6 +100,13 @@ const routes: RouteRecordRaw[] = [
         meta: {
           requiresAuth: true
         }
+      },
+      {
+        path: '/mi-perfil',
+        component: () => import('pages/Perfil/Index.vue'),
+        meta: {
+          requiresAuth: true
+        }
       }
     ]
   },

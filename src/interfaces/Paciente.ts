@@ -14,6 +14,7 @@ export interface IPaciente {
   nombre_completo?: string
   apellido_paterno: string
   apellido_materno: string
+  registro_consumo?: string
   sexo: string
   estatura: number
   email: string
@@ -38,6 +39,7 @@ export class Paciente implements IPaciente {
   nombre: string
   apellido_paterno: string
   apellido_materno: string
+  registro_consumo?: string
   sexo: string
   estatura: number
   email: string
@@ -60,6 +62,7 @@ export class Paciente implements IPaciente {
       (this.nombre = data.nombre || ''),
       (this.apellido_paterno = data.apellido_paterno || ''),
       (this.apellido_materno = data.apellido_materno || ''),
+      (this.registro_consumo = data.registro_consumo || ''),
       (this.sexo = data.sexo || ''),
       (this.estatura = data.estatura || 0),
       (this.email = data.email || ''),

@@ -44,11 +44,11 @@
             </div>
           </q-card-section>
           <q-card-section
-            class="col-4 q-pl-xl"
+            class="col-3 q-pl-xl"
             style="border-right: 1px solid #e2e8f0"
           >
             <p class="text-weight-bold q-mt-md">Datos generales</p>
-            <div class="row justify-between q-mb-sm" style="width: 230px">
+            <div class="row justify-between q-mb-sm" style="width: 210px">
               <span class="text-weight-bold" style="font-size: 16px">Sexo</span>
               <span
                 class="text-weight-bold"
@@ -56,7 +56,7 @@
                 >{{ paciente.sexo == 'M' ? 'Hombre' : 'Mujer' }}</span
               >
             </div>
-            <div class="row justify-between q-mb-sm" style="width: 230px">
+            <div class="row justify-between q-mb-sm" style="width: 210px">
               <span class="text-weight-bold" style="font-size: 16px">Edad</span>
               <span
                 class="text-weight-bold"
@@ -64,15 +64,17 @@
                 >{{ getEdad }}</span
               >
             </div>
-            <div class="row justify-between q-mb-sm" style="width: 230px">
-              <span class="text-weight-bold" style="font-size: 16px">Altura</span>
+            <div class="row justify-between q-mb-sm" style="width: 210px">
+              <span class="text-weight-bold" style="font-size: 16px"
+                >Altura</span
+              >
               <span
                 class="text-weight-bold"
                 style="font-size: 16px; color: #94a3b8"
-                >{{ getAltura}}</span
+                >{{ getAltura }}</span
               >
             </div>
-            <div class="row justify-between q-mb-sm" style="width: 230px">
+            <div class="row justify-between q-mb-sm" style="width: 210px">
               <span class="text-weight-bold" style="font-size: 16px"
                 >Consultorio</span
               >
@@ -82,7 +84,7 @@
                 >{{ paciente.consultorio?.nombre }}</span
               >
             </div>
-            <div class="row justify-between q-mb-sm" style="width: 230px">
+            <div class="row justify-between q-mb-sm" style="width: 210px">
               <span class="text-weight-bold" style="font-size: 16px"
                 >Nutricionista</span
               >
@@ -94,12 +96,15 @@
             </div>
           </q-card-section>
 
-          <q-card-section class="col-4 q-pl-xl">
+          <q-card-section
+            class="col-3 q-pl-xl"
+            style="border-right: 1px solid #e2e8f0"
+          >
             <div class="row justify-between items-center q-mt-md q-mb-md">
               <p class="text-weight-bold q-mb-none">Datos Adicionales</p>
               <!--  -->
             </div>
-            <div class="row justify-between q-mb-sm" style="">
+            <div class="row justify-between q-mb-sm" style="width: 240px">
               <span class="text-weight-bold" style="font-size: 16px"
                 >Condiciones médicas</span
               >
@@ -113,7 +118,7 @@
                 }}</span
               >
             </div>
-            <div class="row justify-between q-mb-sm" style="">
+            <div class="row justify-between q-mb-sm" style="width: 240px">
               <span class="text-weight-bold" style="font-size: 16px"
                 >Actividad física</span
               >
@@ -123,7 +128,7 @@
                 >{{ paciente.actividad_fisica?.nombre }}</span
               >
             </div>
-            <div class="row justify-between q-mb-sm" style="">
+            <div class="row justify-between q-mb-sm" style="width: 240px">
               <span class="text-weight-bold" style="font-size: 16px"
                 >Alergias</span
               >
@@ -133,7 +138,7 @@
                 >{{ paciente.alergias ? paciente.alergias : 'Ninguna' }}</span
               >
             </div>
-            <div class="row justify-between q-mb-sm" style="">
+            <div class="row justify-between q-mb-sm" style="width: 240px">
               <span class="text-weight-bold" style="font-size: 16px"
                 >Objetivo actual</span
               >
@@ -141,6 +146,29 @@
                 class="text-weight-bold"
                 style="font-size: 16px; color: #94a3b8"
                 >{{ paciente.objetivo?.nombre }}</span
+              >
+            </div>
+          </q-card-section>
+
+          <q-card-section class="col-3">
+            <div class="row justify-between items-center q-mt-md q-mb-md">
+              <p class="text-weight-bold q-mb-none">Registro de Consumo</p>
+            </div>
+            <div class="row justify-between q-mb-sm" style="width: 230px">
+              <span
+                class="text-weight-bold"
+                style="
+                  font-size: 16px;
+                  color: #94a3b8;
+                  text-overflow: ellipsis;
+                  overflow: hidden;
+                  max-width: 500px;
+                "
+                >{{
+                  paciente.registro_consumo
+                    ? paciente.registro_consumo
+                    : 'No registrado'
+                }}</span
               >
             </div>
           </q-card-section>
@@ -209,8 +237,6 @@ const getEdad = computed(() => {
   return calcularEdad(fechaNacimiento)
 })
 const getAltura = computed(() => {
-
-
   return paciente.value.estatura || 'NA'
 })
 
