@@ -15,7 +15,7 @@
     <div class="row q-mx-md q-mt-sm">
       <div class="col-12 q-mb-xs">
         <q-card flat bordered class="row" style="height: 250px">
-          <q-card-section class="col-3" style="border-right: 1px solid #e2e8f0">
+          <q-card-section class="col-4" style="border-right: 1px solid #e2e8f0">
             <div class="column items-center justify-center">
               <q-avatar size="80px" class="q-mt-sm">
                 <img src="../../assets/images.png" />
@@ -44,7 +44,7 @@
             </div>
           </q-card-section>
           <q-card-section
-            class="col-3 q-pl-xl"
+            class="col-4 q-pl-xl"
             style="border-right: 1px solid #e2e8f0"
           >
             <p class="text-weight-bold q-mt-md">Datos generales</p>
@@ -97,8 +97,7 @@
           </q-card-section>
 
           <q-card-section
-            class="col-3 q-pl-xl"
-            style="border-right: 1px solid #e2e8f0"
+            class="col-4 q-pl-xl"
           >
             <div class="row justify-between items-center q-mt-md q-mb-md">
               <p class="text-weight-bold q-mb-none">Datos Adicionales</p>
@@ -150,7 +149,7 @@
             </div>
           </q-card-section>
 
-          <q-card-section class="col-3">
+          <!-- <q-card-section class="col-3">
             <div class="row justify-between items-center q-mt-md q-mb-md">
               <p class="text-weight-bold q-mb-none">Registro de Consumo</p>
             </div>
@@ -171,7 +170,7 @@
                 }}</span
               >
             </div>
-          </q-card-section>
+          </q-card-section> -->
         </q-card>
       </div>
       <div class="col-12">
