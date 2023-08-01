@@ -13,8 +13,8 @@
       />
     </div>
     <div class="row q-mx-md q-mt-sm">
-      <div class="col-12 q-mb-xs">
-        <q-card flat bordered class="row" style="height: 250px">
+      <div class="col-12 q-mb-md">
+        <q-card flat bordered class="row" style="height: 235px">
           <q-card-section class="col-4" style="border-right: 1px solid #e2e8f0">
             <div class="column items-center justify-center">
               <q-avatar size="80px" class="q-mt-sm">
@@ -47,7 +47,7 @@
             class="col-4 q-pl-xl"
             style="border-right: 1px solid #e2e8f0"
           >
-            <p class="text-weight-bold q-mt-md">Datos generales</p>
+            <p class="text-weight-bold q-mt-md q-mb-sm">Datos generales</p>
             <div class="row justify-between q-mb-sm" style="width: 210px">
               <span class="text-weight-bold" style="font-size: 16px">Sexo</span>
               <span
@@ -96,9 +96,7 @@
             </div>
           </q-card-section>
 
-          <q-card-section
-            class="col-4 q-pl-xl"
-          >
+          <q-card-section class="col-4 q-pl-xl">
             <div class="row justify-between items-center q-mt-md q-mb-md">
               <p class="text-weight-bold q-mb-none">Datos Adicionales</p>
               <!--  -->
@@ -148,30 +146,30 @@
               >
             </div>
           </q-card-section>
-
-          <!-- <q-card-section class="col-3">
-            <div class="row justify-between items-center q-mt-md q-mb-md">
-              <p class="text-weight-bold q-mb-none">Registro de Consumo</p>
-            </div>
-            <div class="row justify-between q-mb-sm" style="width: 230px">
+        </q-card>
+      </div>
+      <div class="col-12 q-mb-xs">
+        <q-expansion-item
+          class="shadow-1 overflow-hidden"
+          icon="description"
+          label="Registro de consumo"
+          header-class="bg-white text-black"
+          expand-icon-class="text-black"
+        >
+          <q-card>
+            <q-card-section>
               <span
                 class="text-weight-bold"
-                style="
-                  font-size: 16px;
-                  color: #94a3b8;
-                  text-overflow: ellipsis;
-                  overflow: hidden;
-                  max-width: 500px;
-                "
+                style="font-size: 16px; color: #94a3b8"
                 >{{
                   paciente.registro_consumo
                     ? paciente.registro_consumo
                     : 'No registrado'
                 }}</span
               >
-            </div>
-          </q-card-section> -->
-        </q-card>
+            </q-card-section>
+          </q-card>
+        </q-expansion-item>
       </div>
       <div class="col-12">
         <TableCitas :id="id" @cita="handleCita" />
