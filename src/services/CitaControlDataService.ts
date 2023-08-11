@@ -31,7 +31,7 @@ class CitaControlDataService {
   async deleteCita (id: string): Promise<IResponse<any>> {
     let response
     try {
-      response = await API.get(`eliminar/cita-control/{{id}}`, {
+      response = await API.delete(`eliminar/cita-control/{{id}}`, {
         params: { id }
       })
     } catch (error) {

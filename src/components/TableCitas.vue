@@ -110,12 +110,12 @@ const submit = async () => {
         // console.log('crea')
 
         const data = await citaControlDataServices.save({
-          peso: Number(form.peso),
-          musculo: Number(form.musculo),
-          grasas: Number(form.grasas),
-          porcentaje_grasa: Number(form.porcentaje_grasa),
-          cc: Number(form.cc),
-          grasa_viceral: Number(form.grasa_viceral),
+          peso: form.peso,
+          musculo: form.musculo,
+          grasas: form.grasas,
+          porcentaje_grasa: form.porcentaje_grasa,
+          cc: form.cc,
+          grasa_viceral: form.grasa_viceral,
           evolucion: form.evolucion,
           cliente_id: props.id
         })
@@ -136,12 +136,12 @@ const submit = async () => {
         // console.log('actualiza')
 
         const data = await citaControlDataServices.update(form.id, {
-          peso: Number(form.peso),
-          musculo: Number(form.musculo),
-          grasas: Number(form.grasas),
-          porcentaje_grasa: Number(form.porcentaje_grasa),
-          cc: Number(form.cc),
-          grasa_viceral: Number(form.grasa_viceral),
+          peso: form.peso,
+          musculo: form.musculo,
+          grasas: form.grasas,
+          porcentaje_grasa: form.porcentaje_grasa,
+          cc: form.cc,
+          grasa_viceral: form.grasa_viceral,
           evolucion: form.evolucion,
           cliente_id: props.id
         })
