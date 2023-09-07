@@ -126,6 +126,16 @@ function isFechaEnRango(fechaInicio: any, fechaFin: any) {
 }
 
 const pacientesFiltered = computed(() => {
+  items.value.sort((a: IPaciente, b: IPaciente) => {
+    if (a.nombre_completo! < b.nombre_completo!) {
+      return -1
+    }
+    if (a.nombre_completo! > b.nombre_completo!) {
+      return 1
+    }
+    return 0
+  })
+
   return items.value.filter((item: IPaciente) => {
     const coincideNombre =
       search.value === '' ||

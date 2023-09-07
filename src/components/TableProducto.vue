@@ -61,6 +61,16 @@ const getItems = async () => {
 }
 
 const itemsFiltered = computed(() => {
+  items.value.sort((a, b) => {
+    if (a.nombre < b.nombre) {
+      return -1
+    }
+    if (a.nombre > b.nombre) {
+      return 1
+    }
+    return 0
+  })
+
   if (search.value === '') {
     return items.value
   }
