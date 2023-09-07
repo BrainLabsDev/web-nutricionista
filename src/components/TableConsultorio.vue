@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, reactive } from 'vue'
+import { ref, onMounted, reactive, computed } from 'vue'
 import { IClinic } from '../interfaces/Clinic'
 import { clinicDataServices } from 'src/services/ClinicDataService'
 import { useQuasar } from 'quasar'
