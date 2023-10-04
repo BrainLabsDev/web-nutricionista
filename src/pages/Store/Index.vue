@@ -1,10 +1,10 @@
 <template>
   <div class="max-container">
-    <q-breadcrumbs>
+    <!-- <q-breadcrumbs>
       <q-breadcrumbs-el label="Inicio" />
       <q-breadcrumbs-el label="Tienda" />
       <q-breadcrumbs-el label="Natalia Segura App" />
-    </q-breadcrumbs>
+    </q-breadcrumbs> -->
 
     <div class="row">
       <div class="col-12">

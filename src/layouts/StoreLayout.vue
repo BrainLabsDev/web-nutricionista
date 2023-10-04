@@ -25,6 +25,14 @@
         >
       </div>
     </div>
+
+    <div class="max-container">
+      <q-breadcrumbs class="q-my-lg">
+        <q-breadcrumbs-el label="Inicio" />
+        <q-breadcrumbs-el :to="{ name: 'Store' }" label="Tienda" />
+        <q-breadcrumbs-el label="Natalia Segura App" />
+      </q-breadcrumbs>
+    </div>
     <q-page-container>
       <router-view />
     </q-page-container>
@@ -41,9 +49,7 @@ const goSite = () => {
 </script>
 <style scoped lang="scss">
 .max-container {
-  height: 126px;
   margin: 0 auto;
-  margin-top: 10px;
   max-width: 1260px;
 }
 </style>
