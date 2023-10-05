@@ -39,11 +39,6 @@ import { onMounted, ref } from 'vue'
 const store = useAuthStore()
 const { logout } = store
 const essentialLinks: EssentialLinkProps[] = [
-  // {
-  //   title: 'Inicio',
-  //   icon: 'o_home',
-  //   link: '/inicio'
-  // },
   {
     title: 'Pacientes',
     icon: 'o_account_circle',

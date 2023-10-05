@@ -110,6 +110,28 @@ const routes: RouteRecordRaw[] = [
       }
     ]
   },
+  {
+    path: '/store',
+    component: () => import('layouts/StoreLayout.vue'),
+    children: [
+      {
+        path: '',
+        name: 'Store',
+        component: () => import('pages/Store/Index.vue')
+      },
+      {
+        path: '/checkout/:id',
+        name: 'Checkout',
+        props: true,
+        component: () => import('pages/Store/Payment.vue')
+      },
+      {
+        path: '/success',
+        name: 'Success',
+        component: () => import('pages/Store/Success.vue')
+      }
+    ]
+  },
 
   // Always leave this as last one,
   // but you can also remove it

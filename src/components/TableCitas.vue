@@ -321,7 +321,7 @@ const deleteCita = async () => {
             text-color="white"
             @click="handleCita(props.row.id)"
           >
-            {{ props.row.fecha_cita }}
+            {{ props.row.created_at.split('T')[0] }}
           </q-btn>
         </q-td>
       </template>
