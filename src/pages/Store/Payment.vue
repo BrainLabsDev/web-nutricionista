@@ -134,7 +134,7 @@
                     background-color: #0070ba;
                   "
                   :to="{
-                    name: 'Success',
+                    name: 'Success'
                   }"
                   >PAYPAL</q-btn
                 >
@@ -239,15 +239,14 @@ const formulario = reactive({
 const suscripcion = ref({
   label: '1 mes',
   value: '1',
-  precio: '$60.00',
-  precioDesc: '$50.00'
+  precio: '',
+  precioDesc: '$10.00'
 })
 const options = [
-  { label: '1 mes', value: '1', precio: '$60.00', precioDesc: '$50.00' },
-  { label: '3 meses', value: '3', precio: '$180.00', precioDesc: '$150.00' },
-  { label: '6 meses', value: '6', precio: '$320.00', precioDesc: '$300.00' },
-  { label: '9 meses', value: '9', precio: '$480.00', precioDesc: '$450.00' },
-  { label: '1 año', value: '12', precio: '$550.00', precioDesc: '$500.00' }
+  { label: '1 mes', value: '1', precio: '', precioDesc: '$10.00' },
+  { label: '3 mes', value: '3', precio: '$30.00', precioDesc: '$15.00' },
+  { label: '6 mes', value: '6', precio: '$60.00', precioDesc: '$30.00' },
+  { label: '1 año', value: '12', precio: '$120.00', precioDesc: '$50.00' }
 ]
 
 onMounted(() => {
