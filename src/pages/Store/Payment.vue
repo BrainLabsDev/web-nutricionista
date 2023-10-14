@@ -1,21 +1,21 @@
 <template>
   <div class="max-container">
-    <!-- <q-breadcrumbs>
-      <q-breadcrumbs-el label="Inicio" />
-      <q-breadcrumbs-el label="Tienda" />
-      <q-breadcrumbs-el label="Natalia Segura App" />
-    </q-breadcrumbs> -->
-
-    <div class="row items-center">
-      <div class="col-10">
+    <div class="row justify-center justify-sm-start">
+      <div class="desktop-only col-12">
         <h1 class="text-h4">Finalizando la compra de la suscripción</h1>
+      </div>
+      <div class="mobile-only col-12 text-center">
+        <h1 class="text-h6">Finalizando la compra de la suscripción</h1>
       </div>
     </div>
 
     <div class="row q-mb-lg">
-      <div class="col-8">
-        <div class="row">
-          <div class="col-12">
+      <div class="col-12 col-sm-8">
+        <div class="row justify-center justify-sm-start">
+          <div class="mobile-only col-12 text-center">
+            <p class="text-h5">Detalles del Cliente</p>
+          </div>
+          <div class="desktop-only col-12">
             <p class="text-h5">Detalles del Cliente</p>
           </div>
           <div class="col-10">
@@ -89,7 +89,7 @@
           </div>
         </div>
       </div>
-      <div class="col-4">
+      <div class="col-12 col-sm-4">
         <q-card class="q-pa-sm q-mt-lg" flat style="background-color: #f0f0f0">
           <q-card-section>
             <div class="text-h6">Resumen del Pedido</div>
@@ -122,22 +122,7 @@
             </div>
             <div class="row">
               <div class="col-12 text-center">
-                <q-btn
-                  size="lg"
-                  rounded
-                  flat
-                  text-color="white"
-                  style="
-                    font-size: 14px;
-                    height: 45px;
-                    width: 168px;
-                    background-color: #0070ba;
-                  "
-                  :to="{
-                    name: 'Success'
-                  }"
-                  >PAYPAL</q-btn
-                >
+                <div id="paypal-button-container"></div>
               </div>
             </div>
           </q-card-section>
@@ -148,7 +133,7 @@
         </div>
       </div>
       <div class="row q-mt-sm">
-        <div class="col-12 text-center">
+        <div class="col-12">
           <q-btn
             size="lg"
             rounded
@@ -170,7 +155,10 @@
   </div>
 
   <!-- FOOTER -->
-  <div style="height: 400px !important; background-color: #e0eedc">
+  <div
+    class="desktop-only"
+    style="height: 400px !important; background-color: #e0eedc"
+  >
     <div class="max-container">
       <div class="row q-py-lg">
         <div class="col-12">
@@ -224,9 +212,69 @@
       </div>
     </div>
   </div>
+  <div
+    class="mobile-only"
+    style="height: 550px !important; background-color: #e0eedc"
+  >
+    <div class="max-container">
+      <div class="row q-py-lg justify-center">
+        <div class="col-10 text-center">
+          <q-img src="../../assets/Logo.png" width="200px" />
+        </div>
+        <div class="col-10">
+          <div class="row">
+            <div class="col-12">
+              <h2 class="text-h5">Consultorios</h2>
+              <div class="row">
+                <p class="text-subtitle2">
+                  Escazú:
+                  <span class="text-weight-light">
+                    Centro Médico Momentum , enfrente de Multiplaza Escazú. Piso
+                    7 , consultorio 72.
+                  </span>
+                </p>
+                <p class="text-subtitle2">
+                  Calle Blancos:
+                  <span class="text-weight-light">
+                    Centro Médico Centauro , costado SUR de la Clinica Católica,
+                    Piso 3, consultorio 322
+                  </span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-10">
+          <div class="row">
+            <div class="col-12">
+              <h2 class="text-h5">Horario</h2>
+              <p class="text-subtitle2">
+                Lunes a Viernes:
+                <span class="text-weight-light"> 8:30 a. m. – 7 p. m. </span>
+              </p>
+              <p class="text-subtitle2">
+                Sábados:
+                <span class="text-weight-light"> 9 a.m. - 1 p.m. </span>
+              </p>
+              <p class="text-subtitle2">
+                Teléfono:
+                <span class="text-weight-light"> 2253-3773 </span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 text-center">
+          Natalia Segura Nutricionista - Copyright © 2023
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script lang="ts" setup>
+// const PayPalButton = paypal.Buttons.driver('vue', window.Vue)
 import { reactive, ref, computed, onMounted } from 'vue'
 const props = defineProps(['id'])
 const formulario = reactive({
@@ -251,6 +299,32 @@ const options = [
 
 onMounted(() => {
   suscripcion.value = options.find(item => item.value === props.id)
+  paypal
+    .Buttons({
+      style: {
+        layout: 'vertical',
+        color: 'gold',
+        shape: 'rect',
+        label: 'paypal'
+      },
+      createOrder: function (data, actions) {
+        return actions.order.create({
+          purchase_units: [
+            {
+              amount: {
+                value: '10.00' // El monto del pago
+              }
+            }
+          ]
+        })
+      },
+      onApprove: function (data, actions) {
+        return actions.order.capture().then(function (details) {
+          // Aquí puedes realizar acciones adicionales después de que se apruebe el pago
+        })
+      }
+    })
+    .render('#paypal-button-container')
 })
 </script>
 

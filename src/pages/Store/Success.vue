@@ -1,11 +1,5 @@
 <template>
   <div class="max-container">
-    <!-- <q-breadcrumbs>
-      <q-breadcrumbs-el label="Inicio" />
-      <q-breadcrumbs-el label="Tienda" />
-      <q-breadcrumbs-el label="Natalia Segura App" />
-    </q-breadcrumbs> -->
-
     <div class="row">
       <div class="col-12">
         <h1 class="text-h4 text-center">
@@ -15,14 +9,23 @@
     </div>
 
     <div class="row q-mb-lg">
-      <div class="col-6 row justify-center">
+      <div class="col-12 col-sm-6 row justify-center">
         <q-img src="../../assets/app-mobile.png" width="350px" />
       </div>
-      <div class="col-4">
+      <div class="col-12 col-sm-4">
         <div class="row">
-          <div class="col-12">
-            <h2 class="text-h4">Natalia Segura App</h2>
-            <p class="text-subtitle2">Se ha enviado un correo electrónico al correo registro</p>
+          <div class="mobile-only col-12 text-center">
+            <h2 class="text-h6"> Aplicación: Lista de intercambios nutricionales</h2>
+            <p class="text-subtitle2">
+              Se ha enviado un correo electrónico al correo registro
+            </p>
+            <p class="text-subtitle2">texto dummy</p>
+          </div>
+          <div class="desktop-only col-12">
+            <h2 class="text-h4"> Aplicación: Lista de intercambios nutricionales</h2>
+            <p class="text-subtitle2">
+              Se ha enviado un correo electrónico al correo registro
+            </p>
             <p class="text-subtitle2">texto dummy</p>
           </div>
         </div>
@@ -31,7 +34,10 @@
   </div>
 
   <!-- FOOTER -->
-  <div style="height: 400px !important; background-color: #e0eedc">
+  <div
+    class="desktop-only"
+    style="height: 400px !important; background-color: #e0eedc"
+  >
     <div class="max-container">
       <div class="row q-py-lg">
         <div class="col-12">
@@ -80,6 +86,65 @@
       </div>
       <div class="row">
         <div class="col-12">
+          Natalia Segura Nutricionista - Copyright © 2023
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="mobile-only"
+    style="height: 550px !important; background-color: #e0eedc"
+  >
+    <div class="max-container">
+      <div class="row q-py-lg justify-center">
+        <div class="col-10 text-center">
+          <q-img src="../../assets/Logo.png" width="200px" />
+        </div>
+        <div class="col-10">
+          <div class="row">
+            <div class="col-12">
+              <h2 class="text-h5">Consultorios</h2>
+              <div class="row">
+                <p class="text-subtitle2">
+                  Escazú:
+                  <span class="text-weight-light">
+                    Centro Médico Momentum , enfrente de Multiplaza Escazú. Piso
+                    7 , consultorio 72.
+                  </span>
+                </p>
+                <p class="text-subtitle2">
+                  Calle Blancos:
+                  <span class="text-weight-light">
+                    Centro Médico Centauro , costado SUR de la Clinica Católica,
+                    Piso 3, consultorio 322
+                  </span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-10">
+          <div class="row">
+            <div class="col-12">
+              <h2 class="text-h5">Horario</h2>
+              <p class="text-subtitle2">
+                Lunes a Viernes:
+                <span class="text-weight-light"> 8:30 a. m. – 7 p. m. </span>
+              </p>
+              <p class="text-subtitle2">
+                Sábados:
+                <span class="text-weight-light"> 9 a.m. - 1 p.m. </span>
+              </p>
+              <p class="text-subtitle2">
+                Teléfono:
+                <span class="text-weight-light"> 2253-3773 </span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 text-center">
           Natalia Segura Nutricionista - Copyright © 2023
         </div>
       </div>
