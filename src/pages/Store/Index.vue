@@ -10,7 +10,31 @@
 
     <div class="row q-mb-lg">
       <div class="col-12 col-sm-6 row justify-center">
-        <q-img src="../../assets/app-mobile.png" width="350px" />
+        <q-img
+          v-if="img === 1"
+          src="../../assets/app-mobile.png"
+          width="350px"
+        />
+        <q-img
+          v-if="img === 2"
+          src="../../assets/app-mobile2.png"
+          width="350px"
+        />
+
+        <div class="col-12 text-center">
+          <q-img
+            src="../../assets/app-mobile.png"
+            width="50px"
+            class="q-mx-sm"
+            @click="img = 1"
+          />
+          <q-img
+            src="../../assets/app-mobile2.png"
+            width="50px"
+            class="q-mx-sm"
+            @click="img = 2"
+          />
+        </div>
       </div>
       <div class="col-12 col-sm-6">
         <div class="row">
@@ -289,7 +313,14 @@
 
 <script lang="ts" setup>
 import { reactive, ref, computed, onMounted } from 'vue'
-const suscripcion = ref({ label: '3 meses', value: '3', precio: '$30.00', precioDesc: '$15.00' })
+
+const img = ref(1)
+const suscripcion = ref({
+  label: '3 meses',
+  value: '3',
+  precio: '$30.00',
+  precioDesc: '$15.00'
+})
 const options = [
   { label: '1 mes', value: '1', precio: '', precioDesc: '$10.00' },
   { label: '3 meses', value: '3', precio: '$30.00', precioDesc: '$15.00' },
