@@ -11,12 +11,12 @@
     <div class="row q-mb-lg">
       <div class="col-12 col-sm-6 row justify-center">
         <q-img
-          v-if="img === 1"
+          v-show="img === 1"
           src="../../assets/app-mobile.png"
           width="350px"
         />
         <q-img
-          v-if="img === 2"
+          v-show="img === 2"
           src="../../assets/app-mobile2.png"
           width="350px"
         />
@@ -44,6 +44,10 @@
               Aplicación: Lista de intercambios nutricionales
             </h2>
             <p class="text-subtitle2">
+              Puedes comprar el acceso por 1, 3, 6 o 12 meses.
+            </p>
+            <p class="text-subtitle2">Compra por más meses parar ahorrar más.</p>
+            <p class="text-subtitle2">
               Disponible para
               <a
                 href="https://apps.apple.com/cr/app/nutricionista-natalia-segura/id6449504782"
@@ -62,6 +66,10 @@
             <h2 class="text-h4">
               Aplicación: Lista de intercambios nutricionales
             </h2>
+            <p class="text-subtitle2">
+              Puedes comprar el acceso por 1, 3, 6 o 12 meses.
+            </p>
+            <p class="text-subtitle2">Compra por más meses parar ahorrar más.</p>
             <p class="text-subtitle2">
               Disponible para
               <a
