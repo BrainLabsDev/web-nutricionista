@@ -93,7 +93,6 @@
         <q-card class="q-pa-sm q-mt-lg" flat style="background-color: #f0f0f0">
           <q-card-section>
             <div class="text-h6">Resumen del Pedido</div>
-            <!-- <div class="text-subtitle2">by John Doe</div> -->
           </q-card-section>
 
           <q-separator inset />
@@ -104,7 +103,7 @@
                 <q-img src="../../assets/app-mobile.png" width="100px" />
               </div>
               <div>
-                <p>Natalia Segura App</p>
+                <p>Aplicación</p>
                 <p>{{ suscripcion.label }}</p>
               </div>
               <div>
@@ -122,7 +121,8 @@
             </div>
             <div class="row">
               <div class="col-12 text-center">
-                <div id="paypal-button-container"></div>
+                <Paypal :amount-pay="amountPay" />
+                <!-- <div id="paypal-button-container"></div> -->
               </div>
             </div>
           </q-card-section>
@@ -274,8 +274,8 @@
 </template>
 
 <script lang="ts" setup>
-// const PayPalButton = paypal.Buttons.driver('vue', window.Vue)
 import { reactive, ref, computed, onMounted } from 'vue'
+import Paypal from 'components/storePage/Paypal.vue'
 const props = defineProps(['id'])
 const formulario = reactive({
   nombre: '',
@@ -288,43 +288,75 @@ const suscripcion = ref({
   label: '1 mes',
   value: '1',
   precio: '',
-  precioDesc: '$10.00'
+  precioDesc: '$10.00',
+  amount: '10.00'
 })
 const options = [
-  { label: '1 mes', value: '1', precio: '', precioDesc: '$10.00' },
-  { label: '3 mes', value: '3', precio: '$30.00', precioDesc: '$15.00' },
-  { label: '6 mes', value: '6', precio: '$60.00', precioDesc: '$30.00' },
-  { label: '1 año', value: '12', precio: '$120.00', precioDesc: '$50.00' }
+  {
+    label: '1 meses',
+    value: '1',
+    precio: '',
+    precioDesc: '$10.00',
+    amount: '10.00'
+  },
+  {
+    label: '3 meses',
+    value: '3',
+    precio: '$30.00',
+    precioDesc: '$15.00',
+    amount: '15.00'
+  },
+  {
+    label: '6 meses',
+    value: '6',
+    precio: '$60.00',
+    precioDesc: '$30.00',
+    amount: '30.00'
+  },
+  {
+    label: '1 año',
+    value: '12',
+    precio: '$120.00',
+    precioDesc: '$50.00',
+    amount: '50.00'
+  }
 ]
-
+const amountPay = computed(() => {
+  return suscripcion.value.amount
+})
 onMounted(() => {
+  //@ts-ignore
   suscripcion.value = options.find(item => item.value === props.id)
-  paypal
-    .Buttons({
-      style: {
-        layout: 'vertical',
-        color: 'gold',
-        shape: 'rect',
-        label: 'paypal'
-      },
-      createOrder: function (data, actions) {
-        return actions.order.create({
-          purchase_units: [
-            {
-              amount: {
-                value: '10.00' // El monto del pago
-              }
-            }
-          ]
-        })
-      },
-      onApprove: function (data, actions) {
-        return actions.order.capture().then(function (details) {
-          // Aquí puedes realizar acciones adicionales después de que se apruebe el pago
-        })
-      }
-    })
-    .render('#paypal-button-container')
+  //@ts-ignore
+  // paypal
+  //   .Buttons({
+  //     style: {
+  //       layout: 'vertical',
+  //       color: 'gold',
+  //       shape: 'rect',
+  //       label: 'paypal'
+  //     },
+  //     createOrder: function (data, actions) {
+  //       return actions.order.create({
+  //         purchase_units: [
+  //           {
+  //             amount: {
+  //               value: `15.00` // El monto del pago
+  //             }
+  //           }
+  //         ]
+  //       })
+  //     },
+  //     onApprove: function (data, actions) {
+  //       return actions.order.capture().then(function (details) {
+  //         console.log(details)
+
+  //         router.push({ name: 'Success' })
+  //         // Aquí puedes realizar acciones adicionales después de que se apruebe el pago
+  //       })
+  //     }
+  //   })
+  //   .render('#paypal-button-container')
 })
 </script>
 

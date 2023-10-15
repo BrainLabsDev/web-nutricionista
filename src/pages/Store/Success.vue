@@ -15,18 +15,50 @@
       <div class="col-12 col-sm-4">
         <div class="row">
           <div class="mobile-only col-12 text-center">
-            <h2 class="text-h6"> Aplicación: Lista de intercambios nutricionales</h2>
-            <p class="text-subtitle2">
-              Se ha enviado un correo electrónico al correo registro
+            <h2 class="text-h6">
+              Aplicación: Lista de intercambios nutricionales
+            </h2>
+            <p class="text-subtitle2 q-mx-sm">
+              Se ha enviado un correo electrónico con la cuenta de usuario y la
+              contraseña para ingresar a la aplicación.
             </p>
-            <p class="text-subtitle2">texto dummy</p>
+            <p class="text-subtitle2">
+              Descarga la aplicación en tu celular
+              <a
+                href="https://apps.apple.com/cr/app/nutricionista-natalia-segura/id6449504782"
+                target="_blank"
+                >iOS</a
+              >
+              &
+              <a
+                href="https://play.google.com/store/apps/details?id=org.nutrimind.app"
+                target="_blank"
+                >Android</a
+              >.
+            </p>
           </div>
           <div class="desktop-only col-12">
-            <h2 class="text-h4"> Aplicación: Lista de intercambios nutricionales</h2>
+            <h2 class="text-h4">
+              Aplicación: Lista de intercambios nutricionales
+            </h2>
             <p class="text-subtitle2">
-              Se ha enviado un correo electrónico al correo registro
+              Se ha enviado un correo electrónico con la cuenta de usuario y la
+              contraseña para ingresar a la aplicación.
             </p>
-            <p class="text-subtitle2">texto dummy</p>
+            <p class="text-subtitle2">
+              Descarga la aplicación en tu celular
+              <a
+                href="https://apps.apple.com/cr/app/nutricionista-natalia-segura/id6449504782"
+                target="_blank"
+                >iOS</a
+              >
+              &
+              <a
+                href="https://play.google.com/store/apps/details?id=org.nutrimind.app"
+                target="_blank"
+                >Android</a
+              >.
+            </p>
           </div>
         </div>
       </div>
