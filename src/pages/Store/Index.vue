@@ -46,7 +46,9 @@
             <p class="text-subtitle2">
               Puedes comprar el acceso por 1, 3, 6 o 12 meses.
             </p>
-            <p class="text-subtitle2">Compra por más meses parar ahorrar más.</p>
+            <p class="text-subtitle2">
+              Compra por más meses parar ahorrar más.
+            </p>
             <p class="text-subtitle2">
               Disponible para
               <a
@@ -69,7 +71,9 @@
             <p class="text-subtitle2">
               Puedes comprar el acceso por 1, 3, 6 o 12 meses.
             </p>
-            <p class="text-subtitle2">Compra por más meses parar ahorrar más.</p>
+            <p class="text-subtitle2">
+              Compra por más meses parar ahorrar más.
+            </p>
             <p class="text-subtitle2">
               Disponible para
               <a
@@ -324,16 +328,31 @@ import { reactive, ref, computed, onMounted } from 'vue'
 
 const img = ref(1)
 const suscripcion = ref({
-  label: '3 meses',
+  label: '3 meses - $15.00',
   value: '3',
   precio: '$30.00',
   precioDesc: '$15.00'
 })
 const options = [
-  { label: '1 mes', value: '1', precio: '', precioDesc: '$10.00' },
-  { label: '3 meses', value: '3', precio: '$30.00', precioDesc: '$15.00' },
-  { label: '6 meses', value: '6', precio: '$60.00', precioDesc: '$30.00' },
-  { label: '1 año', value: '12', precio: '$120.00', precioDesc: '$50.00' }
+  { label: '1 mes - $10.00', value: '1', precio: '', precioDesc: '$10.00' },
+  {
+    label: '3 meses - $15.00',
+    value: '3',
+    precio: '$30.00',
+    precioDesc: '$15.00'
+  },
+  {
+    label: '6 meses - $30.00',
+    value: '6',
+    precio: '$60.00',
+    precioDesc: '$30.00'
+  },
+  {
+    label: '1 año - $50.00',
+    value: '12',
+    precio: '$120.00',
+    precioDesc: '$50.00'
+  }
 ]
 </script>
 
