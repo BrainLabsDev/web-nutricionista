@@ -1,6 +1,7 @@
 import { API } from 'src/common/api'
 import { IProducto } from 'src/interfaces/Producto'
 import { IResponse } from 'src/interfaces/Response'
+import { ISubscription } from 'src/interfaces/Subscription'
 
 import { useAuthStore } from 'src/stores/auth'
 const store = useAuthStore()
@@ -12,6 +13,16 @@ class ProductoDataService {
     let response
     try {
       response = await API.get('show/productos', {})
+    } catch (error) {
+      deleteLocalStorage()
+    }
+    return response!.data
+  }
+
+  async getSubscriptions (): Promise<IResponse<ISubscription[]>> {
+    let response
+    try {
+      response = await API.get('paypal/catalogo', {})
     } catch (error) {
       deleteLocalStorage()
     }

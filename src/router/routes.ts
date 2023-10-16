@@ -129,6 +129,11 @@ const routes: RouteRecordRaw[] = [
         path: '/success',
         name: 'Success',
         component: () => import('pages/Store/Success.vue')
+      },
+      {
+        path: '/success-renovation',
+        name: 'SuccessExist',
+        component: () => import('pages/Store/SuccessExist.vue')
       }
     ]
   },

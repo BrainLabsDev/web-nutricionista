@@ -5,11 +5,12 @@
 </template>
 
 <script setup lang="ts">
+import { userDataServices } from 'src/services/userDataService'
 import { onMounted, computed } from 'vue'
 import { useRouter } from 'vue-router'
 const router = useRouter()
 
-const props = defineProps(['amountPay'])
+const props = defineProps(['amountPay', 'formulario', 'id'])
 
 onMounted(() => {
   //@ts-ignore
@@ -33,9 +34,37 @@ onMounted(() => {
         })
       },
       onApprove: function (data, actions) {
-        return actions.order.capture().then(function (details) {
-          console.log(details)
-          router.push({ name: 'Success' })
+        return actions.order.capture().then(async function (details) {
+          const existUser = await userDataServices.checkUser(
+            props.formulario.email
+          )
+          if (existUser.data === null) {
+            const dataUser = {
+              nombre: props.formulario.nombre,
+              apellido_paterno: props.formulario.apellido_paterno,
+              apellido_materno: props.formulario.apellido_materno,
+              email: props.formulario.email,
+              telefono: props.formulario.telefono,
+              periodo_id: String(props.id),
+              metodo_pago: 'paypal'
+            }
+
+            await userDataServices.createUser(dataUser)
+            router.push({ name: 'Success' })
+          } else {
+            const dataUser = {
+              nombre: existUser.data.nombre,
+              apellido_paterno: existUser.data.apellido_paterno,
+              apellido_materno: existUser.data.apellido_materno,
+              email: existUser.data.email,
+              telefono: existUser.data.telefono,
+              periodo_id: String(props.id)
+            }
+
+            await userDataServices.updateUser(dataUser, existUser.data.id)
+            router.push({ name: 'SuccessExist' })
+          }
+
           // Aquí puedes realizar acciones adicionales después de que se apruebe el pago
         })
       }

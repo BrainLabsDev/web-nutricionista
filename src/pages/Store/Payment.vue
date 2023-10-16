@@ -104,11 +104,13 @@
               </div>
               <div>
                 <p>Aplicación</p>
-                <p>{{ suscripcion.label }}</p>
+                <p>{{ suscripcion.nombre }}</p>
               </div>
               <div>
-                <p class="text-descuento">{{ suscripcion.precio }}</p>
-                <p>{{ suscripcion.precioDesc }}</p>
+                <p class="text-descuento">
+                  {{ formatMoney(suscripcion.precio || 0) }}
+                </p>
+                <p>{{ formatMoney(suscripcion.descuento || 0) }}</p>
               </div>
             </div>
           </q-card-section>
@@ -117,12 +119,18 @@
           <q-card-section>
             <div class="row justify-between">
               <p>Total:</p>
-              <p>{{ suscripcion.precioDesc }}</p>
+              <p>{{ formatMoney(suscripcion.descuento || 0) }}</p>
             </div>
             <div class="row">
-              <div class="col-12 text-center">
-                <Paypal :amount-pay="amountPay" />
-                <!-- <div id="paypal-button-container"></div> -->
+              <div v-if="validatePay" class="col-12 text-center">
+                <Paypal
+                  :amount-pay="amountPay"
+                  :formulario="formulario"
+                  :id="suscripcion.id"
+                />
+              </div>
+              <div v-else class="col-12 text-center">
+                <p class="text-h6">Complete sus datos para pagar</p>
               </div>
             </div>
           </q-card-section>
@@ -276,6 +284,8 @@
 <script lang="ts" setup>
 import { reactive, ref, computed, onMounted } from 'vue'
 import Paypal from 'components/storePage/Paypal.vue'
+import { ISubscription } from 'src/interfaces/Subscription'
+import { productoDataServices } from '../../services/ProductoDataService'
 const props = defineProps(['id'])
 const formulario = reactive({
   nombre: '',
@@ -284,80 +294,51 @@ const formulario = reactive({
   telefono: null,
   email: ''
 })
-const suscripcion = ref({
-  label: '1 mes',
-  value: '1',
-  precio: '',
-  precioDesc: '$10.00',
-  amount: '10.00'
-})
-const options = [
-  {
-    label: '1 meses',
-    value: '1',
-    precio: '',
-    precioDesc: '$10.00',
-    amount: '10.00'
-  },
-  {
-    label: '3 meses',
-    value: '3',
-    precio: '$30.00',
-    precioDesc: '$15.00',
-    amount: '15.00'
-  },
-  {
-    label: '6 meses',
-    value: '6',
-    precio: '$60.00',
-    precioDesc: '$30.00',
-    amount: '30.00'
-  },
-  {
-    label: '1 año',
-    value: '12',
-    precio: '$120.00',
-    precioDesc: '$50.00',
-    amount: '50.00'
-  }
-]
-const amountPay = computed(() => {
-  return suscripcion.value.amount
-})
-onMounted(() => {
-  //@ts-ignore
-  suscripcion.value = options.find(item => item.value === props.id)
-  //@ts-ignore
-  // paypal
-  //   .Buttons({
-  //     style: {
-  //       layout: 'vertical',
-  //       color: 'gold',
-  //       shape: 'rect',
-  //       label: 'paypal'
-  //     },
-  //     createOrder: function (data, actions) {
-  //       return actions.order.create({
-  //         purchase_units: [
-  //           {
-  //             amount: {
-  //               value: `15.00` // El monto del pago
-  //             }
-  //           }
-  //         ]
-  //       })
-  //     },
-  //     onApprove: function (data, actions) {
-  //       return actions.order.capture().then(function (details) {
-  //         console.log(details)
+const loading = ref(false)
+const suscripcion = ref<ISubscription>({} as ISubscription)
 
-  //         router.push({ name: 'Success' })
-  //         // Aquí puedes realizar acciones adicionales después de que se apruebe el pago
-  //       })
-  //     }
-  //   })
-  //   .render('#paypal-button-container')
+const items = ref<ISubscription[]>([] as ISubscription[])
+
+const amountPay = computed(() => {
+  return suscripcion?.value?.descuento?.toFixed(2) || 0
 })
+
+const validatePay = computed(() => {
+  if (
+    formulario.nombre &&
+    formulario.apellido_paterno &&
+    formulario.apellido_materno &&
+    formulario.telefono &&
+    formulario.email
+  ) {
+    return true
+  }
+  return false
+})
+
+onMounted(async () => {
+  await getItems()
+  //@ts-ignore
+})
+
+const getItems = async () => {
+  loading.value = true
+  try {
+    const data = await productoDataServices.getSubscriptions()
+
+    if (data.code === 200) {
+      items.value = data.data
+      suscripcion.value = items.value.find(item => item.id === Number(props.id))
+    }
+  } catch (error) {
+    console.log(error)
+  }
+  loading.value = false
+}
+
+const formatMoney = (value: number) => {
+  return `$${value.toFixed(2)} USD`
+}
 </script>
 
 <style lang="scss" scoped>
