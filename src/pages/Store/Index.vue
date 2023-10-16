@@ -92,7 +92,7 @@
 
           <div class="mobile-only col-12 text-center">
             <div class="q-my-lg">
-              <span class="text-h5 q-mr-sm text-descuento">{{
+              <span v-if="suscripcion.precio != suscripcion.descuento" class="text-h5 q-mr-sm text-descuento">{{
                 formatMoney(suscripcion.precio || 0)
               }}</span>
               <span class="text-h5">{{
@@ -103,7 +103,7 @@
 
           <div class="desktop-only col-12">
             <div class="q-my-lg">
-              <span class="text-h5 q-mr-sm text-descuento">{{
+              <span v-if="suscripcion.precio != suscripcion.descuento" class="text-h5 q-mr-sm text-descuento">{{
                 formatMoney(suscripcion.precio || 0)
               }}</span>
               <span class="text-h5">{{
