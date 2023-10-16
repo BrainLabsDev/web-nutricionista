@@ -92,28 +92,43 @@
 
           <div class="mobile-only col-12 text-center">
             <div class="q-my-lg">
-              <span class="text-h4 q-mr-sm text-descuento">{{
-                suscripcion.precio
+              <span class="text-h5 q-mr-sm text-descuento">{{
+                formatMoney(suscripcion.precio || 0)
               }}</span>
-              <span class="text-h4">{{ suscripcion.precioDesc }}</span>
+              <span class="text-h5">{{
+                formatMoney(suscripcion.precio || 0)
+              }}</span>
             </div>
           </div>
 
           <div class="desktop-only col-12">
             <div class="q-my-lg">
-              <span class="text-h4 q-mr-sm text-descuento">{{
-                suscripcion.precio
+              <span class="text-h5 q-mr-sm text-descuento">{{
+                formatMoney(suscripcion.precio || 0)
               }}</span>
-              <span class="text-h4">{{ suscripcion.precioDesc }}</span>
+              <span class="text-h5">{{
+                formatMoney(suscripcion.descuento || 0)
+              }}</span>
             </div>
           </div>
 
           <div class="mobile-only col-10 q-mb-lg q-mx-auto">
             <q-select
               outlined
+              :loading="loading"
               label="Suscripción"
               v-model="suscripcion"
-              :options="options"
+              :options="
+                items.map(item => {
+                  return {
+                    label:
+                      item.nombre + ' - ' + formatMoney(item.descuento || 0),
+                    value: item
+                  }
+                })
+              "
+              emit-value
+              map-options
               return-object
             />
           </div>
@@ -121,9 +136,20 @@
           <div class="desktop-only col-6 q-mb-lg">
             <q-select
               outlined
+              :loading="loading"
               label="Suscripción"
               v-model="suscripcion"
-              :options="options"
+              :options="
+                items.map(item => {
+                  return {
+                    label:
+                      item.nombre + ' - ' + formatMoney(item.descuento || 0),
+                    value: item
+                  }
+                })
+              "
+              emit-value
+              map-options
               return-object
             />
           </div>
@@ -143,7 +169,7 @@
               "
               :to="{
                 name: 'Checkout',
-                params: { id: suscripcion.value }
+                params: { id: suscripcion.id }
               }"
               >COMPRAR</q-btn
             >
@@ -164,7 +190,7 @@
               "
               :to="{
                 name: 'Checkout',
-                params: { id: suscripcion.value }
+                params: { id: suscripcion.id }
               }"
               >COMPRAR</q-btn
             >
@@ -324,36 +350,37 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref, computed, onMounted } from 'vue'
-
+import { productoDataServices } from 'src/services/ProductoDataService'
+import { ref, onMounted } from 'vue'
+import { ISubscription } from '../../interfaces/Subscription'
 const img = ref(1)
-const suscripcion = ref({
-  label: '3 meses - $15.00',
-  value: '3',
-  precio: '$30.00',
-  precioDesc: '$15.00'
+const loading = ref(false)
+const suscripcion = ref<ISubscription>({} as ISubscription)
+
+const items = ref<ISubscription[]>([] as ISubscription[])
+
+onMounted(async () => {
+  await getItems()
 })
-const options = [
-  { label: '1 mes - $10.00', value: '1', precio: '', precioDesc: '$10.00' },
-  {
-    label: '3 meses - $15.00',
-    value: '3',
-    precio: '$30.00',
-    precioDesc: '$15.00'
-  },
-  {
-    label: '6 meses - $30.00',
-    value: '6',
-    precio: '$60.00',
-    precioDesc: '$30.00'
-  },
-  {
-    label: '1 año - $50.00',
-    value: '12',
-    precio: '$120.00',
-    precioDesc: '$50.00'
+
+const getItems = async () => {
+  loading.value = true
+  try {
+    const data = await productoDataServices.getSubscriptions()
+
+    if (data.code === 200) {
+      items.value = data.data
+      suscripcion.value = items.value[1]
+    }
+  } catch (error) {
+    console.log(error)
   }
-]
+  loading.value = false
+}
+
+const formatMoney = (value: number) => {
+  return `$${value.toFixed(2)} USD`
+}
 </script>
 
 <style lang="scss" scoped>
