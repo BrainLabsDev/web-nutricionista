@@ -53,11 +53,7 @@ onMounted(() => {
             router.push({ name: 'Success' })
           } else {
             const dataUser = {
-              nombre: existUser.data.nombre,
-              apellido_paterno: existUser.data.apellido_paterno,
-              apellido_materno: existUser.data.apellido_materno,
-              email: existUser.data.email,
-              telefono: existUser.data.telefono,
+              ...existUser.data,
               periodo_id: String(props.id)
             }
 
