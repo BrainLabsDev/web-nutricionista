@@ -96,7 +96,7 @@
                 formatMoney(suscripcion.precio || 0)
               }}</span>
               <span class="text-h5">{{
-                formatMoney(suscripcion.precio || 0)
+                formatMoney(suscripcion.descuento || 0)
               }}</span>
             </div>
           </div>
