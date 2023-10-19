@@ -95,7 +95,7 @@ const getItems = async () => {
     const data = await citaControlDataServices.getAll(props.id)
 
     if (data.code === 200) {
-      items.value = data.data.reverse()
+      items.value = data.data
     }
   } catch (error) {
     console.log(error)
@@ -288,7 +288,7 @@ const deleteCita = async () => {
         </q-td>
       </template>
       <template v-slot:body-cell-cc="props">
-        <q-td key="cc" :props="props" style="width: 80px;">
+        <q-td key="cc" :props="props" style="width: 80px">
           {{ props.row.cc }}
         </q-td>
       </template>
