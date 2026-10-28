@@ -117,13 +117,13 @@ const routes: RouteRecordRaw[] = [
       {
         path: '',
         name: 'Store',
-        component: () => import('pages/Store/Index.vue')
+        // Archivada desde el 1 de noviembre de 2026; antes: pages/Store/Index.vue y Payment.vue.
+        component: () => import('pages/Store/Cerrada.vue')
       },
       {
         path: '/checkout/:id',
         name: 'Checkout',
-        props: true,
-        component: () => import('pages/Store/Payment.vue')
+        component: () => import('pages/Store/Cerrada.vue')
       },
       {
         path: '/success',
